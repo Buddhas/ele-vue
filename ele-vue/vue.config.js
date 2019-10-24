@@ -18,7 +18,7 @@ module.exports = {
     devServer: {
         open: false,        // 是否自动打开浏览器页面
         host: '0.0.0.0',    // 指定使用一个 host，默认是 localhost
-        port: 8080,         // 端口地址
+        port: 8091,         // 端口地址
         https: false,       // 使用https提供服务
         // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
         proxy: 'http://api.zhuishushenqi.com'
@@ -41,14 +41,25 @@ module.exports = {
             }
         }
     },
+
     css: {
         loaderOptions: {
-            sass: {
-                data: `
-                @import "@/style/mixin.scss";
-                @import "@/style/_var.scss";
-                `
-            }
+          sass: {
+            data: '\n                @import "@/style/mixin.scss";\n                @import "@/style/_var.scss";\n                '
+          },
+          stylus: {
+            'resolve url': true,
+            'import': [
+              './src/theme'
+            ]
+          }
         }
     },
+
+    pluginOptions: {
+      'cube-ui': {
+        postCompile: true,
+        theme: true
+      }
+    }
 };

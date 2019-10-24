@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './cube-ui'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -6,6 +7,7 @@ import i18n from './locale'
 import filters from './filters'
 
 import Toast from './components/toast/index'
+import 'amfe-flexible'
 Vue.use(Toast);
 
 Vue.config.productionTip = false
