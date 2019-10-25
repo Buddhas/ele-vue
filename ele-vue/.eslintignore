@@ -1,0 +1,4 @@
+# 忽略项目基础代码
+
+src/common/*.*
+README.md
