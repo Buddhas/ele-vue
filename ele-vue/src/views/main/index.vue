@@ -1,5 +1,15 @@
 <template>
   <div class="main-wrapper">
-    indexasdfasdfasf
+    <Head />
   </div>
 </template>
+
+<script>
+import Head from './components/head'
+
+export default {
+  components: {
+    Head
+  }
+}
+</script>
