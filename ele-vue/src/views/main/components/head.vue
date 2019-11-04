@@ -6,7 +6,7 @@
       <span class="iconfont">&#xe615;</span>
     </div>
     <div class="search">
-      <div class="search-box"></div>
+      <div class="search-box">搜索饿了么商家、商品名称</div>
     </div>
   </div>
 </template>
@@ -41,6 +41,10 @@ export default {
     .search-box {
       width: 100%;
       height: 36px;
+      line-height: 36px;
+      font-size: 14px;
+      text-align: center;
+      color: #999;
       background-color: #ffffff;
     }
   }
