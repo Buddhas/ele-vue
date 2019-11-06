@@ -48,21 +48,10 @@ figcaption {
 html, body {
   height: 100%;
   width: 100%;
-  font-size: 0.373333rem;
-  color: #999;
+  font-size: 12px;
+  color: #333;
   background: #f5f5f5;
 }
-p {text-indent: 2em;}
-img {width: 100%;height: auto;max-width: 100%;vertical-align: middle;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-textarea { resize: none; }
-table {border-collapse: collapse;border-spacing: 0; }
-i{font-style: normal;}
-a, button, input, select, textarea,
-a:active, button:active, input:active, select:active, textarea:active{text-decoration: none;cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);outline: none;}
-a, a:link, a:visited, a:hover, a:active{text-decoration: none;cursor: pointer;outline: none;}
-h1, h2, h3, h4, h5, h6{line-height: 1.25;}
-input[type="date"]{border: 0;background: inherit;-webkit-appearance: none;height: 45px;line-height: 45px;}
-input, textarea{padding: 0;margin: 0;}
 /*style*/
 
         
