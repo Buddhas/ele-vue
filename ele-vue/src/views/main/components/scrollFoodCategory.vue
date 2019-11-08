@@ -1,6 +1,6 @@
 <template>
   <div class="scroll-food-category">
-    <cube-slide ref="slide" :data="items" :autoPlay="false" @change="changePage">
+    <cube-slide ref="slide" :data="items" :auto-play="false" @change="changePage">
       <cube-slide-item
         v-for="(item, index) in items"
         :key="index"

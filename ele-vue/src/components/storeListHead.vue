@@ -1,8 +1,8 @@
 <template>
-  <section class="header">
+  <section id="storeListHead" class="header">
     <div class="filter-header">
       <a class="filter-nav" @click="showSortFlag = !showSortFlag">综合排序</a>
-      <a class="filter-nav">距离最近</a>
+      <a class="filter-nav" @click="handleCheck">距离最近</a>
       <a class="filter-nav">品质联盟</a>
       <a class="filter-nav" @click="showScreeing = !showScreeing">筛选</a>
     </div>
@@ -174,7 +174,27 @@ export default {
       checkerValue: [],
       actIndex: -1,
       perIndex: -1,
-      showScreeing: false
+      showScreeing: false,
+      container: null,
+      fixTop: false
+    }
+  },
+  mounted() {
+    this.container = document.getElementById('storeListHead')
+  },
+  methods: {
+    handleCheck() {
+      this.checkFix(this.container)
+    },
+    checkFix(container) {
+      debugger
+      const { top, y } = container.getBoundingClientRect()
+      const distance = top || y || 0
+      if (distance >= this.offsetTop) {
+        this.fixTop = false
+      } else {
+        this.fixTop = true
+      }
     }
   }
 }
