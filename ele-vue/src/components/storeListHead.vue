@@ -1,5 +1,10 @@
 <template>
-  <section id="storeListHead" class="header">
+  <section
+    id="storeListHead"
+    class="header"
+    :class="{ fixed: fixTop }"
+    :style="{ top: minusDistance / 37.5 + 'rem' }"
+  >
     <div class="filter-header">
       <a class="filter-nav" @click="showSortFlag = !showSortFlag">综合排序</a>
       <a class="filter-nav" @click="handleCheck">距离最近</a>
@@ -9,7 +14,9 @@
     <!-- 综合排序列表 -->
     <section class="sort" :class="{ open: showSortFlag }">
       <ul class="item-list">
-        <li v-for="(item, index) in sortItems" :key="index" class="item">{{ item }}</li>
+        <li v-for="(item, index) in sortItems" :key="index" class="item">{{
+          item
+        }}</li>
       </ul>
     </section>
     <!-- 筛选列表 -->
@@ -40,7 +47,7 @@
             :key="index"
             class="item"
             :class="[actIndex == index ? 'item_active' : '']"
-            @click="actIndex=index"
+            @click="actIndex = index"
           >
             {{ item.value }}
           </li>
@@ -55,7 +62,7 @@
             :key="index"
             class="item"
             :class="[perIndex == index ? 'item_active' : '']"
-            @click="perIndex=index"
+            @click="perIndex = index"
           >
             {{ item.value }}
           </li>
@@ -68,6 +75,20 @@
 
 <script>
 export default {
+  props: {
+    // 是否需要吸顶
+    needFixTop: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    // 需要减去的距离
+    minusDistance: {
+      type: Number,
+      required: false,
+      default: 0
+    }
+  },
   data() {
     return {
       showSortFlag: false,
@@ -176,21 +197,28 @@ export default {
       perIndex: -1,
       showScreeing: false,
       container: null,
-      fixTop: false
+      fixTop: false,
+      offsetTop: 0
     }
   },
   mounted() {
-    this.container = document.getElementById('storeListHead')
+    this.initData()
   },
   methods: {
+    initData() {
+      if (this.needFixTop) {
+        this.offsetTop = document.getElementById('storeListHead').offsetTop()
+        this.container = document.getElementById('storeListHead')
+        document.addEventListener('scroll', this.handleCheck)
+      }
+    },
     handleCheck() {
       this.checkFix(this.container)
     },
     checkFix(container) {
-      debugger
       const { top, y } = container.getBoundingClientRect()
       const distance = top || y || 0
-      if (distance >= this.offsetTop) {
+      if (distance + this.minusDistance >= this.offsetTop) {
         this.fixTop = false
       } else {
         this.fixTop = true
@@ -302,6 +330,10 @@ export default {
 .screening-open {
   opacity: 1;
   max-height: 350px;
+}
+.fixed {
+  position: fixed;
+  z-index: 101;
 }
 </style>
 

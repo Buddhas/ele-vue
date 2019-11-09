@@ -162,3 +162,14 @@
       flex-wrap: wrap;
     }
 }
+
+.backgroundimg {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.backgroundcon {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
