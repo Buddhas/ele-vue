@@ -14,9 +14,9 @@
     <!-- 综合排序列表 -->
     <section class="sort" :class="{ open: showSortFlag }">
       <ul class="item-list">
-        <li v-for="(item, index) in sortItems" :key="index" class="item">{{
-          item
-        }}</li>
+        <li v-for="(item, index) in sortItems" :key="index" class="item">
+          {{ item }}
+        </li>
       </ul>
     </section>
     <!-- 筛选列表 -->
@@ -207,9 +207,9 @@ export default {
   methods: {
     initData() {
       if (this.needFixTop) {
-        this.offsetTop = document.getElementById('storeListHead').offsetTop()
+        this.offsetTop = document.getElementById('storeListHead').offsetTop
         this.container = document.getElementById('storeListHead')
-        document.addEventListener('scroll', this.handleCheck)
+       // document.addEventListener('scroll', this.handleCheck)
       }
     },
     handleCheck() {

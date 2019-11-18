@@ -5,6 +5,9 @@
     <div class="store-list">
       <p class="title flex align_center justify_center">推荐商家</p>
       <StoreListHead />
+      <div class="shop-list">
+        <ShopList v-for="(item, index) in 10" :key="index" />
+      </div>
     </div>
   </div>
 </template>
@@ -13,11 +16,13 @@
 import Head from './components/head'
 import ScrollFoodCategory from './components/scrollFoodCategory'
 import StoreListHead from 'components/storeListHead'
+import ShopList from 'components/shopList'
 export default {
   components: {
     Head,
     ScrollFoodCategory,
-    StoreListHead
+    StoreListHead,
+    ShopList
   }
 }
 </script>
@@ -26,8 +31,8 @@ export default {
   .store-list {
     background-color: #fff;
     .title {
-      font-size: 16px;
-      color: black;
+      font-size: 14px;
+      color: #000;
       line-height: 40px;
       padding-top: 20px;
       padding-bottom: 20px;
@@ -35,7 +40,7 @@ export default {
       padding: 0 5px;
       &::before {
         display: block;
-        margin-right: .135135rem;
+        margin-right: .213333rem;
         content: "";
         width: .533333rem;
         height: .026667rem;
@@ -43,7 +48,7 @@ export default {
       }
       &::after {
         display: block;
-        margin-left: .135135rem;
+        margin-left: .213333rem;
         content: "";
         width: .533333rem;
         height: .026667rem;
