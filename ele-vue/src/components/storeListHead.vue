@@ -2,74 +2,68 @@
   <section
     id="storeListHead"
     class="header"
-    :class="{ fixed: fixTop }"
-    :style="{ top: minusDistance / 37.5 + 'rem' }"
   >
-    <div class="filter-header">
-      <a class="filter-nav" @click="showSortFlag = !showSortFlag">综合排序</a>
-      <a class="filter-nav" @click="handleCheck">距离最近</a>
-      <a class="filter-nav">品质联盟</a>
-      <a class="filter-nav" @click="showScreeing = !showScreeing">筛选</a>
+    <div :style="{ top: offsetTop / 37.5 + 'rem' }" :class="{ fixed: fixTop }">
+      <div class="filter-header">
+        <a class="filter-nav" @click="sort">综合排序</a>
+        <a class="filter-nav" @click="handleCheck">距离最近</a>
+        <a class="filter-nav">品质联盟</a>
+        <a class="filter-nav" @click="showScreeing = !showScreeing">筛选</a>
+      </div>
+      <!-- 综合排序列表 -->
+      <section class="sort" :class="{ open: showSortFlag }">
+        <ul class="item-list">
+          <li v-for="(item, index) in sortItems" :key="index" class="item">{{ item }}</li>
+        </ul>
+      </section>
+      <!-- 筛选列表 -->
+      <section class="screening" :class="{ 'screening-open': showScreeing }">
+        <!-- 商家服务 -->
+        <div class="shop-service">
+          <p class="title">商家服务（可多选）</p>
+          <cube-checker v-model="checkerValue" :options="shopService">
+            <cube-checker-item
+              v-for="item in shopService"
+              :key="item.value"
+              :option="item"
+              class="test"
+            >
+              <span class="item">
+                <i class="cubeic-alert"></i>
+                {{ item.text }}
+              </span>
+            </cube-checker-item>
+          </cube-checker>
+        </div>
+        <!-- 优惠活动 -->
+        <div class="favo-activity">
+          <p class="title">优惠活动（单选）</p>
+          <ul class="flex wrap">
+            <li
+              v-for="(item, index) in favourableAct"
+              :key="index"
+              class="item"
+              :class="[actIndex == index ? 'item_active' : '']"
+              @click="actIndex = index"
+            >{{ item.value }}</li>
+          </ul>
+        </div>
+        <!-- 人均消费 -->
+        <div class="per-consump">
+          <p class="title">人均消费</p>
+          <ul class="flex wrap">
+            <li
+              v-for="(item, index) in perConsump"
+              :key="index"
+              class="item"
+              :class="[perIndex == index ? 'item_active' : '']"
+              @click="perIndex = index"
+            >{{ item.value }}</li>
+          </ul>
+        </div>
+      </section>
+      <div v-if="showSortFlag || showScreeing" class="mask"></div>
     </div>
-    <!-- 综合排序列表 -->
-    <section class="sort" :class="{ open: showSortFlag }">
-      <ul class="item-list">
-        <li v-for="(item, index) in sortItems" :key="index" class="item">
-          {{ item }}
-        </li>
-      </ul>
-    </section>
-    <!-- 筛选列表 -->
-    <section class="screening" :class="{ 'screening-open': showScreeing }">
-      <!-- 商家服务 -->
-      <div class="shop-service">
-        <p class="title">商家服务（可多选）</p>
-        <cube-checker v-model="checkerValue" :options="shopService">
-          <cube-checker-item
-            v-for="item in shopService"
-            :key="item.value"
-            :option="item"
-            class="test"
-          >
-            <span class="item">
-              <i class="cubeic-alert"></i>
-              {{ item.text }}
-            </span>
-          </cube-checker-item>
-        </cube-checker>
-      </div>
-      <!-- 优惠活动 -->
-      <div class="favo-activity">
-        <p class="title">优惠活动（单选）</p>
-        <ul class="flex wrap">
-          <li
-            v-for="(item, index) in favourableAct"
-            :key="index"
-            class="item"
-            :class="[actIndex == index ? 'item_active' : '']"
-            @click="actIndex = index"
-          >
-            {{ item.value }}
-          </li>
-        </ul>
-      </div>
-      <!-- 人均消费 -->
-      <div class="per-consump">
-        <p class="title">人均消费</p>
-        <ul class="flex wrap">
-          <li
-            v-for="(item, index) in perConsump"
-            :key="index"
-            class="item"
-            :class="[perIndex == index ? 'item_active' : '']"
-            @click="perIndex = index"
-          >
-            {{ item.value }}
-          </li>
-        </ul>
-      </div>
-    </section>
-    <div v-if="showSortFlag || showScreeing" class="mask"></div>
   </section>
 </template>
 
@@ -82,8 +76,8 @@ export default {
       required: false,
       default: true
     },
-    // 需要减去的距离
-    minusDistance: {
+    // 偏移值，用于多重吸顶的时候位置调整
+    offsetTop: {
       type: Number,
       required: false,
       default: 0
@@ -198,7 +192,7 @@ export default {
       showScreeing: false,
       container: null,
       fixTop: false,
-      offsetTop: 0
+      scrollTop: 0
     }
   },
   mounted() {
@@ -207,9 +201,8 @@ export default {
   methods: {
     initData() {
       if (this.needFixTop) {
-        this.offsetTop = document.getElementById('storeListHead').offsetTop
         this.container = document.getElementById('storeListHead')
-       // document.addEventListener('scroll', this.handleCheck)
+        document.addEventListener('scroll', this.handleCheck)
       }
     },
     handleCheck() {
@@ -218,9 +211,16 @@ export default {
     checkFix(container) {
       const { top, y } = container.getBoundingClientRect()
       const distance = top || y || 0
-      if (distance + this.minusDistance >= this.offsetTop) {
+      if (distance >= this.offsetTop) {
         this.fixTop = false
       } else {
+        this.fixTop = true
+      }
+    },
+    sort() {
+      this.showSortFlag = !this.showSortFlag
+      if (!this.fixTop) {
+        this.container.style.top = 0
         this.fixTop = true
       }
     }
@@ -231,6 +231,7 @@ export default {
 <style lang="scss" scoped>
 .header {
   position: relative;
+  height: 40px;
 }
 .filter-header {
   display: flex;
@@ -239,7 +240,7 @@ export default {
   bottom: 0;
   width: 100%;
   z-index: 4;
-  height: 40px;
+  height: 100%;
   line-height: 40px;
   background-color: #ffffff;
   .filter-nav {
@@ -332,6 +333,8 @@ export default {
   max-height: 350px;
 }
 .fixed {
+  width: 100%;
+  height: 40px;
   position: fixed;
   z-index: 101;
 }
