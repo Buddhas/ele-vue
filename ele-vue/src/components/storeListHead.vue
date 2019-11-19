@@ -2,10 +2,10 @@
   <section id="storeListHead" class="header">
     <div :style="{ top: offsetTop / 37.5 + 'rem' }" :class="{ fixed: fixTop }">
       <div class="filter-header">
-        <a class="filter-nav" @click="sort">综合排序</a>
+        <a class="filter-nav" :class="[showSortFlag ? 'c3190e8' : '']" @click="showSort">综合排序</a>
         <a class="filter-nav" @click="handleCheck">距离最近</a>
         <a class="filter-nav">品质联盟</a>
-        <a class="filter-nav" @click="showScreeing = !showScreeing">筛选</a>
+        <a class="filter-nav" :class="[showScreeing ? 'c3190e8' : '']" @click="showScre">筛选</a>
       </div>
       <!-- 综合排序列表 -->
       <section class="sort" :class="{ open: showSortFlag }">
@@ -42,7 +42,9 @@
               class="item"
               :class="[actIndex == index ? 'item_active' : '']"
               @click="actIndex = index"
-            >{{ item.value }}</li>
+            >
+              {{ item.value }}
+            </li>
           </ul>
         </div>
         <!-- 人均消费 -->
@@ -55,7 +57,9 @@
               class="item"
               :class="[perIndex == index ? 'item_active' : '']"
               @click="perIndex = index"
-            >{{ item.value }}</li>
+            >
+              {{ item.value }}
+            </li>
           </ul>
         </div>
       </section>
@@ -77,7 +81,7 @@ export default {
     offsetTop: {
       type: Number,
       required: false,
-      default: 0
+      default: 66
     }
   },
   data() {
@@ -195,6 +199,9 @@ export default {
   mounted() {
     this.initData()
   },
+  destroyed() {
+    document.removeEventListener('scroll')
+  },
   methods: {
     initData() {
       if (this.needFixTop) {
@@ -215,8 +222,10 @@ export default {
         this.fixTop = true
       }
     },
-    sort() {
+    // 排序
+    showSort() {
       this.showSortFlag = !this.showSortFlag
+      this.showScreeing = false
       if (!this.fixTop) {
         this.fixTop = true
         window.scrollTo({
@@ -224,6 +233,22 @@ export default {
         })
       }
       if (this.showSortFlag) {
+        document.body.classList.add('hide')
+      } else {
+        document.body.classList.remove('hide')
+      }
+    },
+    // 筛选
+    showScre() {
+      this.showScreeing = !this.showScreeing
+      this.showSortFlag = false
+      if (!this.fixTop) {
+        this.fixTop = true
+        window.scrollTo({
+          top: this.scrollTop
+        })
+      }
+      if (this.showScreeing) {
         document.body.classList.add('hide')
       } else {
         document.body.classList.remove('hide')
@@ -343,6 +368,9 @@ export default {
   position: fixed;
   z-index: 101;
 }
+.c3190e8 {
+  color: #3190e8 !important;
+} 
 </style>
 
 <style lang="scss">
