@@ -1,8 +1,5 @@
 <template>
-  <section
-    id="storeListHead"
-    class="header"
-  >
+  <section id="storeListHead" class="header">
     <div :style="{ top: offsetTop / 37.5 + 'rem' }" :class="{ fixed: fixTop }">
       <div class="filter-header">
         <a class="filter-nav" @click="sort">综合排序</a>
@@ -202,6 +199,7 @@ export default {
     initData() {
       if (this.needFixTop) {
         this.container = document.getElementById('storeListHead')
+        this.scrollTop = this.container.getBoundingClientRect().y
         document.addEventListener('scroll', this.handleCheck)
       }
     },
@@ -211,7 +209,7 @@ export default {
     checkFix(container) {
       const { top, y } = container.getBoundingClientRect()
       const distance = top || y || 0
-      if (distance >= this.offsetTop) {
+      if (distance > this.offsetTop) {
         this.fixTop = false
       } else {
         this.fixTop = true
@@ -220,8 +218,15 @@ export default {
     sort() {
       this.showSortFlag = !this.showSortFlag
       if (!this.fixTop) {
-        this.container.style.top = 0
         this.fixTop = true
+        window.scrollTo({
+          top: this.scrollTop
+        })
+      }
+      if (this.showSortFlag) {
+        document.body.classList.add('hide')
+      } else {
+        document.body.classList.remove('hide')
       }
     }
   }
@@ -366,5 +371,8 @@ export default {
   .cube-checker-item_active::after {
     border: 0px;
   }
+}
+.hide {
+  overflow: hidden;
 }
 </style>
