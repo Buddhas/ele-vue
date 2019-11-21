@@ -4,7 +4,7 @@
     <ScrollFoodCategory />
     <div class="store-list">
       <p class="title flex align_center justify_center">推荐商家</p>
-      <StoreListHead />
+      <StoreListHead offsetTop="66" />
       <div class="shop-list">
         <ShopList v-for="(item, index) in 10" :key="index" />
       </div>

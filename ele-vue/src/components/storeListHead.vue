@@ -81,9 +81,9 @@ export default {
     },
     // 偏移值，用于多重吸顶的时候位置调整
     offsetTop: {
-      type: Number,
+      type: [Number, String],
       required: false,
-      default: 66
+      default: 0
     }
   },
   data() {
@@ -201,6 +201,9 @@ export default {
     document.removeEventListener('scroll')
   },
   methods: {
+    setFixTop(boolean) {
+      this.fixTop = boolean
+    },
     initData() {
       if (this.needFixTop) {
         this.container = document.getElementById('storeListHead')
@@ -224,32 +227,38 @@ export default {
     showSort() {
       this.showSortFlag = !this.showSortFlag
       this.showScreeing = false
+      if (this.showSortFlag) {
+        document.body.classList.add('hide')
+      } else {
+        document.body.classList.remove('hide')
+      }
+      if (!this.needFixTop) {
+        return
+      }
       if (!this.fixTop) {
         this.fixTop = true
         window.scrollTo({
           top: this.scrollTop
         })
-      }
-      if (this.showSortFlag) {
-        document.body.classList.add('hide')
-      } else {
-        document.body.classList.remove('hide')
       }
     },
     // 筛选
     showScre() {
       this.showScreeing = !this.showScreeing
       this.showSortFlag = false
+      if (this.showScreeing) {
+        document.body.classList.add('hide')
+      } else {
+        document.body.classList.remove('hide')
+      }
+      if (!this.needFixTop) {
+        return
+      }
       if (!this.fixTop) {
         this.fixTop = true
         window.scrollTo({
           top: this.scrollTop
         })
-      }
-      if (this.showScreeing) {
-        document.body.classList.add('hide')
-      } else {
-        document.body.classList.remove('hide')
       }
     }
   }
