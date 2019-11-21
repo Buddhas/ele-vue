@@ -15,52 +15,54 @@
       </section>
       <!-- 筛选列表 -->
       <section class="screening" :class="{ 'screening-open': showScreeing }">
-        <!-- 商家服务 -->
-        <div class="shop-service">
-          <p class="title">商家服务（可多选）</p>
-          <cube-checker v-model="checkerValue" :options="shopService">
-            <cube-checker-item
-              v-for="item in shopService"
-              :key="item.value"
-              :option="item"
-              class="test"
-            >
-              <span class="item">
-                <i class="cubeic-alert"></i>
-                {{ item.text }}
-              </span>
-            </cube-checker-item>
-          </cube-checker>
+        <div class="service">
+          <!-- 商家服务 -->
+          <div class="shop-service">
+            <p class="title">商家服务（可多选）</p>
+            <cube-checker v-model="checkerValue" :options="shopService">
+              <cube-checker-item
+                v-for="item in shopService"
+                :key="item.value"
+                :option="item"
+                class="test"
+              >
+                <span class="item">
+                  <i class="cubeic-alert"></i>
+                  {{ item.text }}
+                </span>
+              </cube-checker-item>
+            </cube-checker>
+          </div>
+          <!-- 优惠活动 -->
+          <div class="favo-activity">
+            <p class="title">优惠活动（单选）</p>
+            <ul class="flex wrap">
+              <li
+                v-for="(item, index) in favourableAct"
+                :key="index"
+                class="item"
+                :class="[actIndex == index ? 'item_active' : '']"
+                @click="actIndex = index"
+              >{{ item.value }}</li>
+            </ul>
+          </div>
+          <!-- 人均消费 -->
+          <div class="per-consump">
+            <p class="title">人均消费</p>
+            <ul class="flex wrap">
+              <li
+                v-for="(item, index) in perConsump"
+                :key="index"
+                class="item"
+                :class="[perIndex == index ? 'item_active' : '']"
+                @click="perIndex = index"
+              >{{ item.value }}</li>
+            </ul>
+          </div>
         </div>
-        <!-- 优惠活动 -->
-        <div class="favo-activity">
-          <p class="title">优惠活动（单选）</p>
-          <ul class="flex wrap">
-            <li
-              v-for="(item, index) in favourableAct"
-              :key="index"
-              class="item"
-              :class="[actIndex == index ? 'item_active' : '']"
-              @click="actIndex = index"
-            >
-              {{ item.value }}
-            </li>
-          </ul>
-        </div>
-        <!-- 人均消费 -->
-        <div class="per-consump">
-          <p class="title">人均消费</p>
-          <ul class="flex wrap">
-            <li
-              v-for="(item, index) in perConsump"
-              :key="index"
-              class="item"
-              :class="[perIndex == index ? 'item_active' : '']"
-              @click="perIndex = index"
-            >
-              {{ item.value }}
-            </li>
-          </ul>
+        <div class="btn flex">
+          <div class="btn1">清空</div>
+          <div class="btn2">确定</div>
         </div>
       </section>
       <div v-if="showSortFlag || showScreeing" class="mask"></div>
@@ -159,10 +161,6 @@ export default {
       perConsump: [
         {
           key: 1,
-          value: '￥20以下'
-        },
-        {
-          key: 2,
           value: '￥20以下'
         },
         {
@@ -319,7 +317,6 @@ export default {
 .screening {
   width: 100%;
   background-color: #ffffff;
-  padding: 0 15px;
   position: absolute;
   top: 40px;
   z-index: 4;
@@ -327,6 +324,7 @@ export default {
   overflow: auto;
   opacity: 0;
   transition: all 0.2s ease-in-out;
+  position: relative;
   .title {
     font-size: 14px;
     margin-bottom: 20px;
@@ -351,6 +349,26 @@ export default {
     border: 0px;
     color: #3190e8;
   }
+  .service {
+    padding: 0 15px;
+  }
+  .btn {
+    line-height: 1.146667rem;
+    width: 100%;
+    .btn1 {
+      flex: 1;
+      background-color: #fff;
+      color: #ddd;
+      text-align: center;
+    }
+    .btn2 {
+      flex: 1;
+      color: #fff;
+      background-color: #00d762;
+      border: .013333rem solid #00d762;
+      text-align: center;
+    }
+  }
 }
 .shop-service {
   .title {
@@ -370,7 +388,7 @@ export default {
 }
 .c3190e8 {
   color: #3190e8 !important;
-} 
+}
 </style>
 
 <style lang="scss">

@@ -9,6 +9,7 @@
         <ShopList v-for="(item, index) in 10" :key="index" />
       </div>
     </div>
+    <FootGuide />
   </div>
 </template>
 
@@ -17,12 +18,14 @@ import Head from './components/head'
 import ScrollFoodCategory from './components/scrollFoodCategory'
 import StoreListHead from 'components/storeListHead'
 import ShopList from 'components/shopList'
+import FootGuide from 'components/footGuide'
 export default {
   components: {
     Head,
     ScrollFoodCategory,
     StoreListHead,
-    ShopList
+    ShopList,
+    FootGuide
   }
 }
 </script>
