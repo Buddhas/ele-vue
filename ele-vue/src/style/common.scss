@@ -46,6 +46,9 @@
     &.wrap {
       flex-wrap: wrap;
     }
+    &.flex_column {
+      flex-direction: column;
+    }
 }
 
 .backgroundimg {
