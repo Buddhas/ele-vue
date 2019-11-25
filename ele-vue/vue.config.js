@@ -45,7 +45,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         data:
-          '\n                @import "@/style/mixin.scss";\n                @import "@/style/_var.scss";\n                '
+          '\n                @import "@/common/style/mixin.scss";\n                @import "@/common/style/_var.scss";\n                '
       },
       stylus: {
         'resolve url': true,

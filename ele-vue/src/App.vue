@@ -11,9 +11,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import './style/reset.scss';
-@import './style/common.scss';
-@import './style/icon.css';
+@import './common/style/reset.scss';
+@import './common/style/common.scss';
+@import './common/style/icon.css';
 #app {
   width: 100%;
   height: 100%;

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Header from './components/v-header'
+import Header from './components/vHeader'
 export default {
   components: {
     Header

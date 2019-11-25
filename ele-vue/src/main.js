@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './plugins/router'
 import store from './store'
 import filters from './filters'
+import './register'
 
 import Toast from './components/toast/index'
 import 'amfe-flexible'
