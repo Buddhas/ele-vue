@@ -19,11 +19,11 @@ export default {
   props: {
     size: {
       type: Number,
-      default: 0
+      default: 48
     },
     score: {
       type: Number,
-      default: 0
+      default: 4
     }
   },
   computed: {

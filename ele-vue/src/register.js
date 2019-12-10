@@ -3,4 +3,4 @@ import Vue from 'vue'
 
 import HeaderDetail from '@/views/shopDetail/components/headerDetail'
 
-// createAPI(Vue, HeaderDetail)
+createAPI(Vue, HeaderDetail)

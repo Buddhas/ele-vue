@@ -21,7 +21,7 @@
     </div>
     <!-- 阴影部分 -->
     <div class="background">
-      <img :src="seller.image" width="100%" height="100%" />
+      <img :src="seller.image" width="100%" height="100%" @click="showDetail" />
     </div>
   </div>
 </template>
@@ -37,6 +37,16 @@ export default {
             'http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg'
         }
       }
+    }
+  },
+  methods: {
+    showDetail() {
+      this.headerDetailComp = this.headerDetailComp || this.$createHeaderDetail({
+        $props: {
+          seller: 'seller'
+        }
+      })
+      this.headerDetailComp.show()
     }
   }
 }

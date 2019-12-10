@@ -1,12 +1,12 @@
 <template>
-  <span class="support-ico" :class="iconCls"></span>
+  <span class="support-ico decrease" :class="iconCls"></span>
 </template>
 
 <script>
 export default {
   props: {
     type: {
-      type: Number,
+      type: [Number, String],
       default: 0
     }
   },
