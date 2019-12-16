@@ -68,6 +68,7 @@ export default {
     this.onChange(this.index)
   },
   methods: {
+    // 导航页滚动
     onScroll(pos) {
       const tabBarWidth = this.$refs.tabBar.$el.clientWidth
       const slideWidth = this.$refs.slide.slide.scrollerWidth
