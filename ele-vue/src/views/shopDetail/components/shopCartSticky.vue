@@ -1,27 +1,26 @@
 <template>
-  <div class="shop-cart-sticky" v-show="visible">
-    <!-- <shop-cart
+  <div v-show="visible" class="shop-cart-sticky">
+    <shop-cart
       ref="shopCart"
-      :selectFoods="selectFoods"
-      :deliveryPrice="deliveryPrice"
-      :minPrice="minPrice"
+      :select-foods="selectFoods"
+      :delivery-price="deliveryPrice"
+      :min-price="minPrice"
       :fold="fold"
       :sticky="true"
-    >
-    </shop-cart> -->
+    />
   </div>
 </template>
 
 <script>
-// import ShopCart from 'components/shop-cart/shop-cart'
+import ShopCart from './shopCart'
 import popupMixin from '@/common/mixins/popup'
 
 export default {
   name: 'ShopCartSticky',
   mixins: [popupMixin],
-  // components: {
-  //   ShopCart
-  // },
+  components: {
+    ShopCart
+  },
   props: {
     selectFoods: {
       type: Array,
