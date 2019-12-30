@@ -1,6 +1,6 @@
 <template>
   <transition name="move" @after-leave="afterLeave">
-    <div class="food" v-show="visible">
+    <div v-show="visible" class="food">
       <cube-scroll ref="scroll">
         <div class="food-content">
           <div class="image-header">
@@ -17,7 +17,8 @@
             </div>
             <div class="price">
               <span class="now">￥{{ food.price }}</span>
-              <span v-show="food.oldPrice" class="old">￥{{ food.oldPrice }}
+              <span v-show="food.oldPrice" class="old"
+                >￥{{ food.oldPrice }}
               </span>
             </div>
             <div class="cart-control-wrapper">
@@ -68,7 +69,8 @@
                         'icon-thumb_up': rating.rateType === 0,
                         'icon-thumb_down': rating.rateType === 1
                       }"
-                    ></span>{{ rating.text }}
+                    ></span
+                    >{{ rating.text }}
                   </p>
                 </li>
               </ul>
@@ -86,6 +88,69 @@
   </transition>
 </template>
 
+<script>
+import moment from 'moment'
+import ratingMixin from '@/common/mixins/rating'
+import popupMixin from '@/common/mixins/popup'
+
+import CartControl from './components/cartControl'
+import RatingSelect from './components/ratingSelect'
+
+const EVENT_SHOW = 'show'
+const EVENT_ADD = 'add'
+const EVENT_LEAVE = 'leave'
+
+export default {
+  name: 'Food',
+  mixins: [ratingMixin, popupMixin],
+  components: {
+    CartControl,
+    RatingSelect
+  },
+  props: {
+    food: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      desc: {
+        all: '全部',
+        positive: '推荐',
+        negative: '吐槽'
+      }
+    }
+  },
+  computed: {
+    ratings() {
+      return this.food.ratings
+    }
+  },
+  created() {
+    this.$on(EVENT_SHOW, () => {
+      this.$nextTick(() => {
+        this.$refs.scroll.refresh()
+      })
+    })
+  },
+  methods: {
+    afterLeave() {
+      this.$emit(EVENT_LEAVE)
+    },
+    addFirst(event) {
+      this.$set(this.food, 'count', 1)
+      this.$emit(EVENT_ADD, event.target)
+    },
+    addFood(target) {
+      this.$emit(EVENT_ADD, target)
+    },
+    format(time) {
+      return moment(time).format('YYYY-MM-DD hh:mm')
+    }
+  }
+}
+</script>
 <style lang="scss" scoped>
 .food {
   position: fixed;
@@ -95,11 +160,13 @@
   z-index: 30;
   width: 100%;
   background: $color-white;
-   &.move-enter-active, &.move-leave-active {
-    transition: all 0.3s linear
+  &.move-enter-active,
+  &.move-leave-active {
+    transition: all 0.3s linear;
   }
-  &.move-enter, &.move-leave-active {
-    transform: translate3d(100%, 0, 0)
+  &.move-enter,
+  &.move-leave-active {
+    transform: translate3d(100%, 0, 0);
   }
   .image-header {
     position: relative;
@@ -139,12 +206,13 @@
       margin-bottom: 18px;
       line-height: 10px;
       height: 10px;
-      .sell-count, .rating {
+      .sell-count,
+      .rating {
         font-size: $fontsize-small-s;
         color: $color-light-grey;
       }
       .sell-count {
-        margin-right: 12px
+        margin-right: 12px;
       }
     }
     .price {
@@ -180,10 +248,12 @@
       color: $color-white;
       background: $color-blue;
       opacity: 1;
-      &.fade-enter-active, &.fade-leave-active {
-        transition: all 0.3s
+      &.fade-enter-active,
+      &.fade-leave-active {
+        transition: all 0.3s;
       }
-      &.fade-enter, &.fade-leave-active {
+      &.fade-enter,
+      &.fade-leave-active {
         opacity: 0;
         z-index: -1;
       }
@@ -217,9 +287,9 @@
       .rating-item {
         position: relative;
         padding: 16px 0;
-         &:last-child {
-           border-none();
-         }
+        &:last-child {
+          border: 0px;
+        }
         .user {
           position: absolute;
           right: 0;
@@ -233,7 +303,7 @@
             color: $color-light-grey;
           }
           .avatar {
-            border-radius: 50%
+            border-radius: 50%;
           }
         }
         .time {
@@ -246,7 +316,8 @@
           line-height: 16px;
           font-size: $fontsize-small;
           color: $color-dark-grey;
-          .icon-thumb_up, .icon-thumb_down {
+          .icon-thumb_up,
+          .icon-thumb_down {
             margin-right: 4px;
             line-height: 16px;
             font-size: $fontsize-small;
