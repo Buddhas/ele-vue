@@ -7,7 +7,7 @@
       <div class="btn" @click="menuFlag=true"></div>
     </div>
     <div class="operator"></div>
-    <StoreListHead :needFixTop="false" offsetTop="40" ref="storeList"/>
+    <StoreListHead ref="storeList" :needFixTop="false" offsetTop="40" />
     <div class="shop-list">
       <ShopList v-for="(item, index) in 10" :key="index" />
     </div>
