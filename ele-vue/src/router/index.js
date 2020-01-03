@@ -2,6 +2,7 @@ import App from '../App'
 import main from './modules/main'
 import shopDetail from './modules/shopDetail'
 import login from './modules/login'
+import my from './modules/my'
 
 export default [
   {
@@ -10,7 +11,8 @@ export default [
     children: [
       ...main,
       ...shopDetail,
-      ...login
+      ...login,
+      ...my
     ]
   }
 ]
