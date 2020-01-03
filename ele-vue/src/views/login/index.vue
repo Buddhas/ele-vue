@@ -5,7 +5,7 @@
     </div>
     <div class="message-wrapper">
       <section class="tel-input input-wrapper">
-        <input type="tel" maxlength="11" placeholder="手机号">
+        <input type="tel" maxlength="11" placeholder="邮箱">
         <span class="code-btn">获取验证码</span>
       </section>
       <section class="code-input input-wrapper">
@@ -17,6 +17,10 @@
         和
         <a href="http://terms.alicdn.com/legal-agreement/terms/suit_bu1_other/suit_bu1_other201903051859_43484.html">《饿了么隐私权政策》</a>
       </section>
+      <section class="login-btn">
+        登录
+      </section>
+      <section class="about">关于我们</section>
     </div>
   </div>
 </template>
@@ -71,6 +75,23 @@
         a {
           color: #2395ff;
         }
+      }
+      .login-btn {
+        width: 100%;
+        height: 42px;
+        font-size:16px;
+        line-height: 42px;
+        text-align: center;
+        margin-top: 30px;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #4cd96f;
+      }
+      .about {
+        font-size: 12px;
+        margin-top: 20px;
+        text-align: center;
+        color: #999;
       }
     }
   }
