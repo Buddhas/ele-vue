@@ -3,6 +3,7 @@ import main from './modules/main'
 import shopDetail from './modules/shopDetail'
 import login from './modules/login'
 import my from './modules/my'
+import order from './modules/order'
 
 export default [
   {
@@ -12,7 +13,8 @@ export default [
       ...main,
       ...shopDetail,
       ...login,
-      ...my
+      ...my,
+      ...order
     ]
   }
 ]
