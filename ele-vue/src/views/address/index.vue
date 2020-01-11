@@ -1,5 +1,6 @@
 <template>
   <div class="address-index-wrapper">
+    <Header />
     <div class="item-wrapper">
       <Item v-for="(item, index) in 10" :key="index" />
     </div>
@@ -11,9 +12,11 @@
 
 <script>
 import Item from './components/item'
+import Header from '@/components/header'
 export default {
   components: {
-    Item
+    Item,
+    Header
   }
 }
 </script>
