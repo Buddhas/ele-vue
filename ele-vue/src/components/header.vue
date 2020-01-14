@@ -1,7 +1,7 @@
 <template>
   <header class="header-wrapper">
     <div class="header flex align_center justify_center" :style="{backgroundColor:bgColor}">
-      <span class="icon">1</span>
+      <span class="iconfont icon">&#xe670;</span>
       <div class="text flex align_center justify_center">
         <h1 class="elli">{{ title }}</h1>
       </div>
@@ -37,7 +37,7 @@ export default {
       .icon {
         position: absolute;
         left: 20px;
-        font-size: 18px;
+        font-size: 16px;
       }
       .text {
         width: 100%;
