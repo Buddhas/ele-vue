@@ -9,7 +9,7 @@
       <div class="right">
         <div class="input-wrapper flex">
           <span class="iconfont icon">&#xe60a;</span>
-          <input type="text" placeholder="请输入地址" />
+          <input v-model="keyword" type="text" placeholder="请输入地址" />
         </div>
       </div>
     </section>
@@ -39,13 +39,21 @@
 
 <script>
 import Header from '@/components/header'
+import { AMapService } from '@/common/mixins/AMap'
 export default {
+  mixins: [AMapService],
   components: {
     Header
   },
   data() {
     return {
-      title: '选择收货地址'
+      title: '选择收货地址',
+      keyword: ''
+    }
+  },
+  watch: {
+    keyword(val) {
+      this.searchPosition(val)
     }
   }
 }

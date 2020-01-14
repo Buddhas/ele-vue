@@ -5,7 +5,7 @@ export const AMapService = {
       mapObj: '',
       longitude: '', // 经度
       latitude: '', // 纬度
-      currentCity: '', // 当前城市
+      currentCity: 'shenzhen', // 当前城市
       searchRes: [] // 搜索结果
     }
   },
@@ -34,13 +34,13 @@ export const AMapService = {
       })
     },
     // 高德地图搜索服务
-    searchPosition(keyword, city) {
+    searchPosition(keyword) {
       const that = this
       AMap.plugin('AMap.Autocomplete', function() {
         // 实例化Autocomplete
         var autoOptions = {
           // city 限定城市，默认全国
-          city: city || '全国',
+          city: that.currentCity || '全国',
           citylimit: true
         }
         var autoComplete = new AMap.Autocomplete(autoOptions)
