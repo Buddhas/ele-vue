@@ -13,37 +13,44 @@
         </div>
       </div>
     </section>
-    <section class="current">
-      <div class="title">当前地址</div>
-      <div class="current-address flex">
-        <span class="text">东华理工大学</span>
-        <div class="icon">
-          <span class="iconfont ">&#xe624;</span> 
-          <span style="margin-left:5px">重新加载</span>
+    <section v-if="false" class="no-select-items">
+      <section class="current">
+        <div class="title">当前地址</div>
+        <div class="current-address flex">
+          <span class="text">东华理工大学</span>
+          <div class="icon">
+            <span class="iconfont ">&#xe624;</span>
+            <span style="margin-left:5px">重新加载</span>
+          </div>
         </div>
-      </div>
+      </section>
+      <section class="my-address">
+        <div class="title">收货地址</div>
+        <div class="item">
+          <div class="part-1 elli">
+            <span class="name">陈斌</span>
+            <span class="sex">先生</span>
+            <span class="phone">17688702092</span>
+          </div>
+          <div class="part-2 elli">港龙舞蹈罗湖火车站校区</div>
+        </div>
+      </section>
     </section>
-    <section class="my-address">
-      <div class="title">收货地址</div>
-      <div class="item">
-        <div class="part-1 elli">
-          <span class="name">陈斌</span>
-          <span class="sex">先生</span>
-          <span class="phone">17688702092</span>
-        </div>
-        <div class="part-2 elli">港龙舞蹈罗湖火车站校区</div>
-      </div>
+    <section v-else class="select-items">
+      <AddItem v-for="(item, index) in 10" :key="index" />
     </section>
   </div>
 </template>
 
 <script>
 import Header from '@/components/header'
+import AddItem from './components/addItem'
 import { AMapService } from '@/common/mixins/AMap'
 export default {
   mixins: [AMapService],
   components: {
-    Header
+    Header,
+    AddItem
   },
   data() {
     return {
@@ -96,61 +103,63 @@ export default {
       }
     }
   }
-  .current {
-    margin-top: 20px;
-    .title {
-      margin-left: 10px;
-      font-size: 14px;
-    }
-    .current-address {
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
-      padding: 0px 10px;
-      margin-top: 5px;
-      background-color: #ffffff;
-      .text {
-        width: 80%;
-        flex: 1;
-        color: black;
+  .no-select-items {
+    .current {
+      margin-top: 20px;
+      .title {
+        margin-left: 10px;
         font-size: 14px;
-        font-weight: 700;
       }
-      .icon {
-        color: #2395ff;
-      }
-    }
-  }
-  .my-address {
-    margin-top: 20px;
-    .title {
-      margin-left: 10px;
-      font-size: 14px;
-    }
-    .item {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      background-color: #ffffff;
-      .part-1 {
-        .name {
+      .current-address {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        padding: 0px 10px;
+        margin-top: 5px;
+        background-color: #ffffff;
+        .text {
+          width: 80%;
+          flex: 1;
+          color: black;
           font-size: 14px;
           font-weight: 700;
-          color: #333;
-          margin-right: 3px;
         }
-        .sex {
-          font-size: 12px;
-          color: #666;
-          margin-right: 3px;
-        }
-        .phone {
-          font-size: 12px;
-          color: #666;
+        .icon {
+          color: #2395ff;
         }
       }
-      .part-2 {
+    }
+    .my-address {
+      margin-top: 20px;
+      .title {
+        margin-left: 10px;
+        font-size: 14px;
+      }
+      .item {
+        width: 100%;
+        padding: 10px;
         margin-top: 5px;
+        background-color: #ffffff;
+        .part-1 {
+          .name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+            margin-right: 3px;
+          }
+          .sex {
+            font-size: 12px;
+            color: #666;
+            margin-right: 3px;
+          }
+          .phone {
+            font-size: 12px;
+            color: #666;
+          }
+        }
+        .part-2 {
+          margin-top: 5px;
+        }
       }
     }
   }
