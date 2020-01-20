@@ -5,7 +5,7 @@
       <p>暂无订单</p>
     </section>
     <section class="item-wrapper">
-      <Item v-for="(item, index) in 10" :key="index" class="item"/>
+      <Item v-for="(item, index) in 10" :key="index" class="item" />
     </section>
     <section class="loading">
       <cube-loading :size="28" />
@@ -42,7 +42,7 @@ export default {
       }
     }
     .loading {
-      text-align: center;
+      text-align: center；
     }
     .loading /deep/ .cube-loading-spinners {
       display: inline-block;

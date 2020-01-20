@@ -4,6 +4,7 @@ import shopDetail from './modules/shopDetail'
 import login from './modules/login'
 import my from './modules/my'
 import order from './modules/order'
+import address from './modules/address'
 
 export default [
   {
@@ -14,7 +15,8 @@ export default [
       ...shopDetail,
       ...login,
       ...my,
-      ...order
+      ...order,
+      ...address
     ]
   }
 ]
