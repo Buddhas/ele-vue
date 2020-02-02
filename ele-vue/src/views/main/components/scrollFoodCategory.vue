@@ -1,15 +1,15 @@
 <template>
   <div class="scroll-food-category">
-    <cube-slide ref="slide" :data="items" :auto-play="false" @change="changePage">
+    <cube-slide ref="slide" :data="categories" :auto-play="false" @change="changePage">
       <cube-slide-item
-        v-for="(item, index) in items"
+        v-for="(item, index) in categories"
         :key="index"
         @click.native="clickHandler(item, index)"
       >
         <section class="food-category flex wrap">
           <div v-for="(childItem, childIndex) in item" :key="childIndex" class="food-category-item">
             <img src="https://cube.elemecdn.com/7/d8/a867c870b22bc74c87c348b75528djpeg.jpeg?x-oss-process=image/format,webp/resize,w_90,h_90,m_fixed">
-            <span class="title">{{ childItem }}</span>
+            <span class="title">{{ childItem.name }}</span>
           </div>
         </section>
       </cube-slide-item>
@@ -19,34 +19,14 @@
 
 <script>
 export default {
+  props: {
+    categories: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
-      items: [
-        [
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是'
-        ],
-        [
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是',
-          '我是'
-        ]
-      ]
     }
   },
   methods: {

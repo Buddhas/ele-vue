@@ -1,12 +1,12 @@
 <template>
-  <section class="shop-item">
+  <section class="shop-item" @click="toShopDetail">
     <div class="flex">
       <div class="left backgroundimg"></div>
       <div class="right flex justify_between">
         <div class="flex index-line1 justify_between align_center">
           <div class="flex">
             <span class="tag">品牌</span>
-            <p class="elli">觅姐汤可以喝的麻辣烫觅姐汤可以喝的麻辣烫(国贸深圳店)</p>
+            <p class="elli">{{ merchant.name }}</p>
           </div>
           <div>
             <span>···</span>
@@ -14,16 +14,16 @@
         </div>
         <div class="flex index-line2">
           <div class="start">☆☆☆☆☆</div>
-          <span class="ml5">4.6</span>
-          <span class="ml5">月售5664单</span>
+          <span class="ml5">{{ merchant.score }}</span>
+          <span class="ml5">月售{{ merchant.mon_sale }}单</span>
         </div>
         <div class="flex index-line3 justify_between">
           <div class="money-limit">
-            <span>￥20元起送</span>
-            <span class="line">配送费¥1</span>
+            <span>￥{{ merchant.send_price }}元起送</span>
+            <span class="line">配送费¥{{ merchant.ship_price }}</span>
           </div>
           <div class="distance-time">
-            <span>1.63km</span>
+            <span>>99km</span>
             <span class="line">40分钟</span>
           </div>
         </div>
@@ -53,11 +53,22 @@
 
 <script>
 export default {
+  props: {
+    merchant: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       active: ['1', '2', '3', '4'],
       activeColor: ['rgb(240, 115, 115)', 'rgb(241, 136, 79)', 'rgb(112, 188, 70)', 'rgb(153, 153, 153)'],
       showAllActive: false
+    }
+  },
+  methods: {
+    toShopDetail() {
+      this.$router.push({ path: '../shop/index.html', query: { merchantId: this.merchant.id }})
     }
   }
 }

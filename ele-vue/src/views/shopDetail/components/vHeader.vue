@@ -5,9 +5,9 @@
         <img width="64" height="64" :src="seller.image" />
       </div>
       <div class="content flex flex_column justify_between elli">
-        <div class="name">粥品香坊（回龙观）</div>
+        <div class="name">{{ merchantDetail.name }}</div>
         <div class="description">蜂鸟专送/38分钟送达</div>
-        <div class="support">在线支付满28减5</div>
+        <div class="support">在线支付满{{ merchantDetail.top_up}}减{{ merchantDetail.minus }}</div>
       </div>
       <div class="support-count flex align_center">
         <span class="count">5个</span>
@@ -16,8 +16,8 @@
     </div>
     <div class="bulletin-wrapper" @click="showDetail">
       <span class="bulletin-title"></span>
-      <span class="bulletin-text elli">粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。</span>
-      <i class="iconfont">&#xe734;</i>
+      <span class="bulletin-text elli">{{ merchantDetail.synopsis }}</span>
+      <i class="iconfont icon">&#xe60b;</i>
     </div>
     <!-- 阴影部分 -->
     <div class="background">
@@ -36,6 +36,11 @@ export default {
           image:
             'http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg'
         }
+      }
+    },
+    merchantDetail: {
+      type: Object,
+      default() {
       }
     }
   },
@@ -107,6 +112,11 @@ export default {
     line-height: 28px;
     padding: 0 8px;
     background: rgba(7,17,27,0.7);
+    .icon {
+      position: absolute;
+      right: 3px;
+      font-size: 12px;
+    }
   }
   .background {
     position: absolute;

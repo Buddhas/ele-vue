@@ -1,12 +1,21 @@
+<!--
+ * @Descripttion: 首页组件
+ * @version: 1.0
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditors  : 笑佛弥勒
+ * @LastEditTime : 2020-01-26 16:45:50
+ -->
 <template>
   <div class="main-wrapper">
     <Head />
-    <ScrollFoodCategory />
+    <ScrollFoodCategory :categories="categories" />
     <div class="store-list">
       <p class="title flex align_center justify_center">推荐商家</p>
       <StoreListHead offsetTop="66" />
       <div class="shop-list">
-        <ShopList v-for="(item, index) in 10" :key="index" />
+        <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
+        <LoadingMore :finallyFlag="finallyFlag" />
       </div>
     </div>
     <FootGuide />
@@ -14,18 +23,78 @@
 </template>
 
 <script>
+// 业务组件
 import Head from './components/head'
 import ScrollFoodCategory from './components/scrollFoodCategory'
 import StoreListHead from 'components/storeListHead'
 import ShopList from 'components/shopList'
 import FootGuide from 'components/footGuide'
+// 公共组件
+import LoadingMore from '@/components/loadingMore'
+// api请求
+import { main as api } from '@/api/index'
+
+// mixins
+import loadingMore from '@/common/mixins/loadingMore'
+
 export default {
+  mixins: [loadingMore],
   components: {
     Head,
     ScrollFoodCategory,
     StoreListHead,
     ShopList,
-    FootGuide
+    FootGuide,
+    LoadingMore
+  },
+  data() {
+    return {
+      categories: [],
+      merchants: []
+    }
+  },
+  created() {
+    this._getShopCategory()
+    this._getMerchantsByPage()
+  },
+  methods: {
+    // 获取商铺分类
+    _getShopCategory() {
+      api.getShopCategory().then((res) => {
+        this.categories.push(res.data.map((item, index) => {
+          return {
+            id: item.id,
+            name: item.name,
+            image: item.image
+          }
+        }))
+      })
+    },
+    // 获取商铺
+    _getMerchantsByPage() {
+      if (this.page > this.totalPage) {
+        this.finallyFlag = true
+        return
+      }
+      const params = {
+        page: this.page,
+        pageSize: this.pageSize
+      }
+      api.getMerchantsByPage(params).then((res) => {
+        this.totalPage = Math.ceil(res.data.count / this.pageSize)
+        this.merchants.push(...res.data.rows)
+      })
+    },
+    // 加载更多
+    loadingMerchants() {
+      if (this.page > this.totalPage) {
+        this.finallyFlag = true
+        return
+      } else {
+        this.page++
+        this._getMerchantsByPage()
+      }
+    }
   }
 }
 </script>
@@ -33,6 +102,7 @@ export default {
 <style lang="scss" scoped>
   .store-list {
     background-color: #fff;
+    padding-bottom: 55px;
     .title {
       font-size: 14px;
       color: #000;
