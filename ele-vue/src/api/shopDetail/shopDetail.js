@@ -3,8 +3,8 @@
  * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-02-02 14:04:24
- * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-02 15:50:01
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2020-02-04 23:34:15
  */
 import { get } from '@/common/js/request'
 
@@ -13,12 +13,15 @@ const getFoodDetail = (params) => {
   return get('/food/getFoodById', params)
 }
 
-// 获取商铺分类
+// 获取商铺
 const getMerchantsById = (params) => {
   return get('/merchants/getMerchantsById', params)
 }
-
+const getFoodByMerId = (params) => {
+  return get('/merchants/getFoodByMerId', params)
+}
 export default {
   getFoodDetail,
-  getMerchantsById
+  getMerchantsById,
+  getFoodByMerId
 }

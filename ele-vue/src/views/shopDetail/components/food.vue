@@ -93,8 +93,8 @@ import moment from 'moment'
 import ratingMixin from '@/common/mixins/rating'
 import popupMixin from '@/common/mixins/popup'
 
-import CartControl from './components/cartControl'
-import RatingSelect from './components/ratingSelect'
+import CartControl from './cartControl'
+import RatingSelect from './ratingSelect'
 
 const EVENT_SHOW = 'show'
 const EVENT_ADD = 'add'
@@ -159,7 +159,7 @@ export default {
   bottom: 48px;
   z-index: 30;
   width: 100%;
-  background: $color-white;
+  background: #fff;
   &.move-enter-active,
   &.move-leave-active {
     transition: all 0.3s linear;
@@ -187,8 +187,8 @@ export default {
       .icon-arrow_lift {
         display: block;
         padding: 10px;
-        font-size: $fontsize-large-xx;
-        color: $color-white;
+        font-size: 20px;
+        color:#fff;
       }
     }
   }
@@ -198,9 +198,9 @@ export default {
     .title {
       line-height: 14px;
       margin-bottom: 8px;
-      font-size: $fontsize-medium;
+      font-size: 14px;
       font-weight: 700;
-      color: $color-dark-grey;
+      color: #333;
     }
     .detail {
       margin-bottom: 18px;
@@ -208,8 +208,8 @@ export default {
       height: 10px;
       .sell-count,
       .rating {
-        font-size: $fontsize-small-s;
-        color: $color-light-grey;
+        font-size: 10px;
+        color: #999;
       }
       .sell-count {
         margin-right: 12px;
@@ -221,12 +221,12 @@ export default {
       .now {
         margin-right: 8px;
         font-size: 14px;
-        color: $color-red;
+        color: #f01414;
       }
       .old {
         text-decoration: line-through;
-        font-size: $fontsize-small-s;
-        color: $color-light-grey;
+        font-size: 10px;
+        color: #999;
       }
     }
     .cart-control-wrapper {
@@ -244,9 +244,9 @@ export default {
       padding: 0 12px;
       box-sizing: border-box;
       border-radius: 12px;
-      font-size: $fontsize-small-s;
-      color: $color-white;
-      background: $color-blue;
+      font-size: 10px;
+      color: #fff;
+      background: blue;
       opacity: 1;
       &.fade-enter-active,
       &.fade-leave-active {
@@ -264,14 +264,14 @@ export default {
     .title {
       line-height: 14px;
       margin-bottom: 6px;
-      font-size: $fontsize-medium;
-      color: $color-dark-grey;
+      font-size: 14px;
+      color: #333;
     }
     .text {
       line-height: 24px;
       padding: 0 8px;
-      font-size: $fontsize-small;
-      color: $color-grey;
+      font-size: 12px;
+      color: #666;
     }
   }
   .rating {
@@ -279,8 +279,8 @@ export default {
     .title {
       line-height: 14px;
       margin-left: 18px;
-      font-size: $fontsize-medium;
-      color: $color-dark-grey;
+      font-size: 14px;
+      color: #333;
     }
     .rating-wrapper {
       padding: 0 18px;
@@ -299,8 +299,8 @@ export default {
           line-height: 12px;
           .name {
             margin-right: 6px;
-            font-size: $fontsize-small-s;
-            color: $color-light-grey;
+            font-size: 10px;
+            color: #999;
           }
           .avatar {
             border-radius: 50%;
@@ -309,31 +309,31 @@ export default {
         .time {
           margin-bottom: 6px;
           line-height: 12px;
-          font-size: $fontsize-small-s;
-          color: $color-light-grey;
+          font-size: 10px;
+          color: #999;
         }
         .text {
           line-height: 16px;
-          font-size: $fontsize-small;
-          color: $color-dark-grey;
+          font-size: 12px;
+          color: #333;
           .icon-thumb_up,
           .icon-thumb_down {
             margin-right: 4px;
             line-height: 16px;
-            font-size: $fontsize-small;
+            font-size: 12px;
           }
           .icon-thumb_up {
-            color: $color-blue;
+            color: blue;
           }
           .icon-thumb_down {
-            color: $color-light-grey;
+            color: #999;
           }
         }
       }
       .no-rating {
         padding: 16px 0;
-        font-size: $fontsize-small;
-        color: $color-light-grey;
+        font-size: 12px;
+        color: #999;
       }
     }
   }

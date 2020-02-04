@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-01-26 16:45:50
+ * @LastEditTime : 2020-02-03 16:49:44
  -->
 <template>
   <div class="main-wrapper">
@@ -12,10 +12,10 @@
     <ScrollFoodCategory :categories="categories" />
     <div class="store-list">
       <p class="title flex align_center justify_center">推荐商家</p>
-      <StoreListHead offsetTop="66" />
+      <StoreListHead offset-top="66" />
       <div class="shop-list">
         <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
-        <LoadingMore :finallyFlag="finallyFlag" />
+        <LoadingMore :finally-flag="allLoaded" />
       </div>
     </div>
     <FootGuide />
@@ -35,10 +35,10 @@ import LoadingMore from '@/components/loadingMore'
 import { main as api } from '@/api/index'
 
 // mixins
-import loadingMore from '@/common/mixins/loadingMore'
+import LoadingMoreMixin from '@/common/mixins/loadingMore'
 
 export default {
-  mixins: [loadingMore],
+  mixins: [LoadingMoreMixin],
   components: {
     Head,
     ScrollFoodCategory,
@@ -72,10 +72,10 @@ export default {
     },
     // 获取商铺
     _getMerchantsByPage() {
-      if (this.page > this.totalPage) {
-        this.finallyFlag = true
-        return
-      }
+      // if (this.page > this.totalPage) {
+      //   this.finallyFlag = true
+      //   return
+      // }
       const params = {
         page: this.page,
         pageSize: this.pageSize
@@ -86,14 +86,8 @@ export default {
       })
     },
     // 加载更多
-    loadingMerchants() {
-      if (this.page > this.totalPage) {
-        this.finallyFlag = true
-        return
-      } else {
-        this.page++
-        this._getMerchantsByPage()
-      }
+    loadingMore() {
+      this._getMerchantsByPage()
     }
   }
 }

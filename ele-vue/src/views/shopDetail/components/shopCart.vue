@@ -264,7 +264,7 @@ export default {
             }
             .icon-shopping_cart {
               line-height: 44px;
-              font-size: $fontsize-large-xxx;
+              font-size: 24px;
               color: #999;
               &.highlight {
                 color: #fff

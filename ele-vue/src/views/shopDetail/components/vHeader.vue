@@ -6,11 +6,11 @@
       </div>
       <div class="content flex flex_column justify_between elli">
         <div class="name">{{ merchantDetail.name }}</div>
-        <div class="description">蜂鸟专送/38分钟送达</div>
-        <div class="support">在线支付满{{ merchantDetail.top_up}}减{{ merchantDetail.minus }}</div>
+        <div class="description">{{ merchantDetail.description }}/{{ merchantDetail.need_time}}分钟送达</div>
+        <div class="support">在线支付满{{ merchantDetail.top_up }}减{{ merchantDetail.minus }}</div>
       </div>
       <div class="support-count flex align_center">
-        <span class="count">5个</span>
+        <span class="count">3个</span>
         <i class="iconfont">&#xe734;</i>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
     showDetail() {
       this.headerDetailComp = this.headerDetailComp || this.$createHeaderDetail({
         $props: {
-          seller: 'seller'
+          merchantDetail: 'merchantDetail'
         }
       })
       this.headerDetailComp.show()

@@ -24,15 +24,15 @@
           </div>
           <div class="distance-time">
             <span>>99km</span>
-            <span class="line">40分钟</span>
+            <span class="line">{{ merchant.need_time }}分钟</span>
           </div>
         </div>
       </div>
     </div>
     <div class="shop-tag">
-      <div class="type flex wrap">
+      <!-- <div class="type flex wrap">
         <div v-for="(item, index) in 5" :key="index" class="item">盖浇饭</div>
-      </div>
+      </div> -->
       <div class="active-list flex justify_between">
         <div class="active" :style="{height: showAllActive ? 'auto' : '13px'}">
           <div v-for="(item, index) in active" :key="index" class="item">
@@ -40,10 +40,10 @@
             <span v-if="item == 2" :style="{backgroundColor: activeColor[1]}" class="tag">特</span>
             <span v-if="item == 3" :style="{backgroundColor: activeColor[2]}" class="tag">首</span>
             <span v-if="item == 4" :style="{backgroundColor: activeColor[2]}" class="tag">票</span>
-            <span class="desc">满30减15，满60减24</span>
+            <span class="desc">满{{ merchant.top_up }}减{{ merchant.minus }}</span>
           </div>
         </div>
-        <div class="more-active" @click="showAllActive=!showAllActive">
+        <div class="more-active" @click.stop="showAllActive=!showAllActive">
           4个活动
         </div>
       </div>

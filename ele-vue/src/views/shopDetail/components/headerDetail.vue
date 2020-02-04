@@ -3,10 +3,10 @@
     <div v-show="visible" class="header-detail" @touchmove.stop.prevent>
       <div class="detail-wrapper clear-fix">
         <div class="detail-main">
-          <h1 class="name">粥品香坊（回龙观）</h1>
+          <h1 class="name">{{ merchantDetail.name }}</h1>
 
           <div class="star-wrapper">
-            <Star :size="48" :score="seller.score" />
+            <Star :size="48" :score="merchantDetail.score" />
           </div>
 
           <div class="title">
@@ -16,28 +16,36 @@
           </div>
 
           <ul class="supports">
-            <li v-for="(item, index) in 5" :key="index" class="support-item">
+            <li class="support-item">
               <SupportIco type="1" />
-              <span class="text">满五十减100</span>
+              <span class="text">满{{ merchantDetail.top_up }}减{{ merchantDetail.minus }}</span>
+            </li>
+            <li class="support-item">
+              <SupportIco type="2" />
+              <span class="text">该商家支持发票,请下单写好发票抬头</span>
+            </li>
+            <li class="support-item">
+              <SupportIco type="3" />
+              <span class="text">已加入“外卖保”计划,食品安全保障</span>
             </li>
           </ul>
 
           <div class="title">
             <div class="line"></div>
-            <div class="text">商家公告</div>
+            <div class="text">商家简介</div>
             <div class="line"></div>
           </div>
 
           <div class="bulletin">
             <p class="content">
-              粥品香坊其烹饪粥料的秘方源于中国千年古法，在融和现代制作工艺，由世界烹饪大师屈浩先生领衔研发。坚守纯天然、0添加的良心品质深得消费者青睐，发展至今成为粥类的引领品牌。是2008年奥运会和2013年园博会指定餐饮服务商。
+              {{ merchantDetail.synopsis }}
             </p>
           </div>
         </div>
       </div>
 
       <div class="detail-close" @click="hide">
-        <i class="icon-close"></i>
+        <i class="icon-close iconfont">&#xe867;</i>
       </div>
     </div>
   </transition>
@@ -57,7 +65,7 @@ export default {
     SupportIco
   },
   props: {
-    seller: {
+    merchantDetail: {
       type: Object,
       default() {
         return {}
@@ -161,6 +169,9 @@ export default {
     margin: -64px auto 0 auto;
     clear: both;
     font-size: 24px;
+    .icon-close {
+      font-size: 24px;
+    }
   }
 }
 </style>

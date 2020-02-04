@@ -50,8 +50,8 @@ export default {
     .inner {
       display: inline-block;
       line-height: 24px;
-      font-size: $fontsize-large-xxx;
-      color: $color-blue;
+      font-size: 24px;
+      color: blue;
       transition: all 0.4s linear;
       transform: rotate(0);
     }
@@ -70,15 +70,15 @@ export default {
     width: 12px;
     line-height: 24px;
     text-align: center;
-    font-size: $fontsize-small-s;
-    color: $color-grey;
+    font-size: 10px;
+    color: #666;
   }
   .cart-add {
     display: inline-block;
     padding: 6px;
     line-height: 24px;
-    font-size: $fontsize-large-xxx;
-    color: $color-blue;
+    font-size: 24px;
+    color: blue;
   }
 }
 </style>

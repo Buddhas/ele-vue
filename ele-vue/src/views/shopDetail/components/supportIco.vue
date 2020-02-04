@@ -1,3 +1,11 @@
+<!--
+ * @Author: 添加图标
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditTime : 2020-02-05 00:20:54
+ * @LastEditors  : Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \ele-vue\ele-vue\src\views\shopDetail\components\supportIco.vue
+ -->
 <template>
   <span class="support-ico decrease" :class="iconCls"></span>
 </template>
@@ -14,8 +22,6 @@ export default {
     iconCls() {
       const classMap = [
         'decrease',
-        'discount',
-        'special',
         'invoice',
         'guarantee'
       ]
@@ -36,6 +42,12 @@ export default {
     }
     &.decrease {
       background-image: url('../image/decrease.png')
+    }
+    &.guarantee {
+      background-image: url('../image/guarantee.png')
+    }
+    &.invoic {
+      background-image: url('../image/invoic.png')
     }
   }
 </style>

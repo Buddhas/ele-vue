@@ -3,15 +3,15 @@
  * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
- * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-02 16:07:26
+ * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2020-02-05 00:45:42
  -->
 <template>
   <div class="shop-detail">
     <Header :merchant-detail="merchantDetail" />
-    <div class="tab-wrapper">
+    <!-- <div class="tab-wrapper">
       <tab :tabs="tabs" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -22,15 +22,31 @@ import Goods from './components/goods'
 import Ratings from './components/ratings'
 import Seller from './components/seller'
 import Tab from './components/tab'
-
 // api请求
 import { shopDetail as api } from '@/api/index'
+// VUEX
+import { mapMutations } from 'vuex'
 
 export default {
   data() {
     return {
       merchantId: this.$route.query.merchantId,
-      merchantDetail: {}
+      merchantDetail: {},
+      foods: [],
+      tabs: [
+        {
+          label: '商品',
+          component: Goods
+        },
+        {
+          label: '评论',
+          component: Ratings
+        },
+        {
+          label: '商家',
+          component: Seller
+        }
+      ]
     }
   },
   /* eslint-disable */
@@ -41,44 +57,19 @@ export default {
     Seller,
     Tab
   },
-  /* eslint-enable */
-  computed: {
-    tabs() {
-      return [
-        {
-          label: '商品',
-          component: Goods,
-          data: {
-            seller: this.seller
-          }
-        },
-        {
-          label: '评论',
-          component: Ratings,
-          data: {
-            seller: this.seller
-          }
-        },
-        {
-          label: '商家',
-          component: Seller,
-          data: {
-            seller: this.seller
-          }
-        }
-      ]
-    }
-  },
   created() {
     this._getMerchantsById()
   },
   methods: {
+    ...mapMutations('shopDetail', ['MERCHANTDETAIL']),
+    // 获取店铺信息
     _getMerchantsById() {
       const params = {
         id: this.merchantId
       }
       api.getMerchantsById(params).then((res) => {
         this.merchantDetail = res.data
+        this.MERCHANTDETAIL(this.merchantDetail)
       })
     }
   }
