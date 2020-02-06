@@ -1,3 +1,11 @@
+<!--
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditTime : 2020-02-05 11:09:12
+ * @LastEditors  : 笑佛弥勒
+ * @Description: In User Settings Edit
+ * @FilePath: \github\ele-vue\ele-vue\src\views\shopDetail\components\star.vue
+ -->
 <template>
   <div class="star flex align_center justify_center" :class="starType">
     <span
@@ -22,7 +30,7 @@ export default {
       default: 48
     },
     score: {
-      type: Number,
+      type: [Number, String],
       default: 4
     }
   },
@@ -32,7 +40,7 @@ export default {
     },
     itemClasses() {
       const result = []
-      const score = Math.floor(this.score * 2) / 2
+      const score = Math.floor(this.score * 2) / 2 // 0.5以下按整数算，0.5以上按一半算
       const hasDecimal = score % 1 !== 0
       const integer = Math.floor(score)
       for (let i = 0; i < integer; i++) {

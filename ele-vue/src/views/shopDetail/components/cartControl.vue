@@ -1,12 +1,20 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditors  : 笑佛弥勒
+ * @LastEditTime : 2020-02-05 20:20:07
+ -->
 <template>
   <div class="cartcontrol">
     <transition name="move">
       <div v-show="food.count > 0" class="cart-decrease" @click.stop="decrease">
-        <span class="inner icon-remove_circle_outline"></span>
+        <span class="inner icon-remove_circle_outline iconfont">&#xe605;</span>
       </div>
     </transition>
     <div v-show="food.count > 0" class="cart-count">{{ food.count }}</div>
-    <div class="cart-add icon-add_circle" @click.stop="add"></div>
+    <div class="cart-add icon-add_circle iconfont" @click.stop="add">&#xe604;</div>
   </div>
 </template>
 
@@ -51,7 +59,7 @@ export default {
       display: inline-block;
       line-height: 24px;
       font-size: 24px;
-      color: blue;
+      color: #00a0dc;
       transition: all 0.4s linear;
       transform: rotate(0);
     }
@@ -70,7 +78,7 @@ export default {
     width: 12px;
     line-height: 24px;
     text-align: center;
-    font-size: 10px;
+    font-size: 14px;
     color: #666;
   }
   .cart-add {
@@ -78,7 +86,10 @@ export default {
     padding: 6px;
     line-height: 24px;
     font-size: 24px;
-    color: blue;
+    color: #00a0dc;
+  }
+  .icon-add_circle {
+    color: #00a0dc;
   }
 }
 </style>

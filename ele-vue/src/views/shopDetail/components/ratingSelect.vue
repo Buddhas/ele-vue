@@ -102,23 +102,23 @@ export default {
         border-radius: 1px;
         font-size: 12px;
         color: #666;
-      }
-      &.active {
-        color: #fff
-      }
-      .count {
-        margin-left: 2px
-      }
-      &.positive {
-        background: rgba(0,160,220,.2);
         &.active {
-          background: #00a0dc
+          color: #fff
         }
-      }
-      &.negative {
-        background: #ccc;
-        &.active {
-          background: #666;
+        .count {
+          margin-left: 2px
+        }
+        &.positive {
+          background: rgba(0,160,220,.2);
+          &.active {
+            background: #00a0dc
+          }
+        }
+        &.negative {
+          background: #ccc;
+          &.active {
+            background: #666;
+          }
         }
       }
     }

@@ -3,15 +3,15 @@
  * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
- * @LastEditors  : Please set LastEditors
- * @LastEditTime : 2020-02-05 00:45:42
+ * @LastEditors  : 笑佛弥勒
+ * @LastEditTime : 2020-02-05 12:18:35
  -->
 <template>
   <div class="shop-detail">
     <Header :merchant-detail="merchantDetail" />
-    <!-- <div class="tab-wrapper">
+    <div class="tab-wrapper">
       <tab :tabs="tabs" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -37,15 +37,15 @@ export default {
         {
           label: '商品',
           component: Goods
-        },
-        {
-          label: '评论',
-          component: Ratings
-        },
-        {
-          label: '商家',
-          component: Seller
         }
+        // {
+        //   label: '评论',
+        //   component: Ratings
+        // },
+        // {
+        //   label: '商家',
+        //   component: Seller
+        // }
       ]
     }
   },

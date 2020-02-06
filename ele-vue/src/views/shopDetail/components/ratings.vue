@@ -81,6 +81,9 @@ import RatingSelect from './ratingSelect'
 import ratingMixin from '@/common/mixins/rating'
 import moment from 'moment'
 
+// VUEX
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Ratings',
   mixins: [ratingMixin],
@@ -105,10 +108,11 @@ export default {
   },
   computed: {
     seller() {
-      return this.data.seller || {}
+      return this.getMerchantDetail() || {}
     }
   },
   methods: {
+    ...mapGetters('shopDetail', ['getMerchantDetail']),
     fetch() {
       if (!this.fetched) {
         this.fetched = true

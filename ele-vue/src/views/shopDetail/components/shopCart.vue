@@ -6,9 +6,9 @@
           <div class="logo-wrapper">
             <div class="logo" :class="{ highlight: totalCount > 0 }">
               <i
-                class="icon-shopping_cart"
+                class="icon-shopping_cart iconfont"
                 :class="{ highlight: totalCount > 0 }"
-              ></i>
+              >&#xe613;</i>
             </div>
             <div v-show="totalCount > 0" class="num">
               <bubble :num="totalCount" />
@@ -17,7 +17,7 @@
           <div class="price" :class="{ highlight: totalPrice > 0 }">
             ￥{{ totalPrice }}
           </div>
-          <div class="desc">另需配送费￥{{ deliveryPrice }}元</div>
+          <div v-if="deliveryPrice" class="desc">另需配送费￥{{ deliveryPrice }}元</div>
         </div>
         <div class="content-right" @click="pay">
           <div class="pay" :class="payClass">
@@ -57,7 +57,7 @@ function createBalls() {
 }
 export default {
   name: 'ShopCart',
-  components: [Bubble],
+  components: { Bubble },
   props: {
     selectFoods: {
       type: Array,

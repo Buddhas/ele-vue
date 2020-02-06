@@ -86,6 +86,7 @@
 import Star from './star'
 import SupportIco from './supportIco'
 export default {
+  name: 'Seller',
   components: {
     SupportIco,
     Star

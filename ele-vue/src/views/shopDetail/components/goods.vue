@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-01-05 15:47:10
- * @LastEditTime : 2020-02-04 23:48:34
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime : 2020-02-06 17:40:43
+ * @LastEditors  : 笑佛弥勒
  * @Description: In User Settings Edit
  * @FilePath: \ele-vue\ele-vue\src\views\shopDetail\components\goods.vue
  -->
@@ -15,7 +15,7 @@
         :data="goods"
         :options="scrollOptions"
       >
-        <template slot="bar" slot-scope="props">
+        <!-- <template slot="bar" slot-scope="props">
           <cube-scroll-nav-bar
             direction="vertical"
             :labels="props.labels"
@@ -36,7 +36,7 @@
               </div>
             </template>
           </cube-scroll-nav-bar>
-        </template>
+        </template> -->
         <cube-scroll-nav-panel
           v-for="good in goods"
           :key="good.name"
@@ -46,7 +46,7 @@
           <ul>
             <li
               v-for="food in good.foods"
-              :key="food.name"
+              :key="food.id"
               class="food-item"
               @click="selectFood(food)"
             >
@@ -55,14 +55,13 @@
               </div>
               <div class="content">
                 <h2 class="name">{{ food.name }}</h2>
-                <p class="desc">{{ food.description }}</p>
+                <p class="desc">{{ food.introduce }}</p>
                 <div class="extra">
-                  <span class="count">月售{{ food.sellCount }}份</span>
-                  <span>好评率{{ food.rating }}%</span>
+                  <span class="count">月售{{ food.mon_sale }}份</span>
+                  <span>好评率{{ food.rate }}%</span>
                 </div>
                 <div class="price">
                   <span class="now">￥{{ food.price }}</span>
-                  <span v-show="food.oldPrice" class="old">￥{{ food.oldPrice }}</span>
                 </div>
                 <div class="cart-control-wrapper">
                   <cart-control :food="food" @add="onAdd" />
@@ -77,8 +76,8 @@
       <shop-cart
         ref="shopCart"
         :select-foods="selectFoods"
-        :delivery-price="seller.deliveryPrice"
-        :min-price="seller.minPrice"
+        :delivery-price="merchantDetail.deliveryPrice"
+        :min-price="merchantDetail.top_up"
       />
     </div>
   </div>
@@ -93,6 +92,9 @@ import CartControl from './cartControl'
 
 // api请求
 import { shopDetail as api } from '@/api/index'
+
+// VUEX
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Goods',
@@ -122,8 +124,8 @@ export default {
     }
   },
   computed: {
-    seller() {
-      return this.data.seller
+    merchantDetail() {
+      return this.getMerchantDetail()
     },
     selectFoods() {
       let foods = []
@@ -157,6 +159,7 @@ export default {
     this._getFoodByMerId()
   },
   methods: {
+    ...mapGetters('shopDetail', ['getMerchantDetail']),
     // 获取食品
     _getFoodByMerId() {
       const params = {
@@ -170,7 +173,7 @@ export default {
       // if (!this.fetched) {
       //   this.fetched = true
       //   getGoods({
-      //     id: this.seller.id
+      //     id: this.merchantDetail.id
       //   }).then(goods => {
       //     this.goods = goods
       //   })
@@ -208,8 +211,8 @@ export default {
         this.$createShopCartSticky({
           $props: {
             selectFoods: 'selectFoods',
-            deliveryPrice: this.seller.deliveryPrice,
-            minPrice: this.seller.minPrice,
+            deliveryPrice: this.merchantDetail.deliveryPrice,
+            minPrice: this.merchantDetail.top_up,
             fold: true
           }
         })
@@ -223,7 +226,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.goods {
+.goods-wrapper {
   position: relative;
   text-align: left;
   height: 100%;
@@ -304,12 +307,12 @@ export default {
     height: 48px;
   }
 }
-.goods .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar {
+.goods-wrapper .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar {
   width: 80px;
   white-space: normal;
   overflow: hidden;
 }
-.goods .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar-item {
+.goods-wrapper .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar-item {
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -332,11 +335,11 @@ export default {
     margin-right: 4px;
   }
 }
-.goods .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar-item_active {
+.goods-wrapper .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar-item_active {
   background: #fff;
   color: #333;
 }
-.goods .scroll-nav-wrapper /deep/ .cube-scroll-nav-panel-title {
+.goods-wrapper .scroll-nav-wrapper /deep/ .cube-scroll-nav-panel-title {
   padding-left: 14px;
   height: 26px;
   line-height: 26px;

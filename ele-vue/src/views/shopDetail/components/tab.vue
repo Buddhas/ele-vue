@@ -20,7 +20,7 @@
         @change="onChange"
       >
         <cube-slide-item v-for="(tab, tabIndex) in tabs" :key="tabIndex">
-          <component :is="tab.component" ref="component" :data="tab.data" />
+          <component :is="tab.component" ref="component" />
         </cube-slide-item>
       </cube-slide>
     </div>

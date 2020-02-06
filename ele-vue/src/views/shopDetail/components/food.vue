@@ -4,22 +4,19 @@
       <cube-scroll ref="scroll">
         <div class="food-content">
           <div class="image-header">
-            <img :src="food.image" />
+            <img :src="'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750'" />
             <div class="back" @click="hide">
-              <i class="icon-arrow_lift"></i>
+              <i class="icon-arrow_lift iconfont">&#xe670;</i>
             </div>
           </div>
           <div class="content">
             <h1 class="title">{{ food.name }}</h1>
             <div class="detail">
-              <span class="sell-count">月售{{ food.sellCount }}份</span>
-              <span class="rating">好评率{{ food.rating }}%</span>
+              <span class="sell-count">月售{{ food.mon_sale }}份</span>
+              <span class="rating">好评率{{ food.rate }}%</span>
             </div>
             <div class="price">
               <span class="now">￥{{ food.price }}</span>
-              <span v-show="food.oldPrice" class="old"
-                >￥{{ food.oldPrice }}
-              </span>
             </div>
             <div class="cart-control-wrapper">
               <cart-control :food="food" @add="addFood" />
@@ -30,12 +27,12 @@
               </div>
             </transition>
           </div>
-          <!-- <split v-show="food.info"></split> -->
-          <div v-show="food.info" class="info">
+          <split v-show="food.info" />
+          <div v-show="food.introduce" class="info">
             <h1 class="title">商品信息</h1>
-            <p class="text">{{ food.info }}</p>
+            <p class="text">{{ food.introduce }}</p>
           </div>
-          <!-- <split></split> -->
+          <split />
           <div class="rating">
             <h1 class="title">商品评价</h1>
             <rating-select
@@ -46,41 +43,6 @@
               @select="onSelect"
               @toggle="onToggle"
             />
-            <div class="rating-wrapper">
-              <ul v-show="computedRatings && computedRatings.length">
-                <li
-                  v-for="(rating, index) in computedRatings"
-                  :key="index"
-                  class="rating-item border-bottom-1px"
-                >
-                  <div class="user">
-                    <span class="name">{{ rating.username }}</span>
-                    <img
-                      class="avatar"
-                      width="12"
-                      height="12"
-                      :src="rating.avatar"
-                    />
-                  </div>
-                  <div class="time">{{ format(rating.rateTime) }}</div>
-                  <p class="text">
-                    <span
-                      :class="{
-                        'icon-thumb_up': rating.rateType === 0,
-                        'icon-thumb_down': rating.rateType === 1
-                      }"
-                    ></span
-                    >{{ rating.text }}
-                  </p>
-                </li>
-              </ul>
-              <div
-                v-show="!computedRatings || !computedRatings.length"
-                class="no-rating"
-              >
-                暂无评价
-              </div>
-            </div>
           </div>
         </div>
       </cube-scroll>
@@ -89,13 +51,15 @@
 </template>
 
 <script>
+// 工具类
 import moment from 'moment'
 import ratingMixin from '@/common/mixins/rating'
 import popupMixin from '@/common/mixins/popup'
 
+// 业务组件
 import CartControl from './cartControl'
 import RatingSelect from './ratingSelect'
-
+import Split from './split'
 const EVENT_SHOW = 'show'
 const EVENT_ADD = 'add'
 const EVENT_LEAVE = 'leave'
@@ -105,7 +69,8 @@ export default {
   mixins: [ratingMixin, popupMixin],
   components: {
     CartControl,
-    RatingSelect
+    RatingSelect,
+    Split
   },
   props: {
     food: {
@@ -119,12 +84,36 @@ export default {
         all: '全部',
         positive: '推荐',
         negative: '吐槽'
-      }
+      },
+      tempRatings: [
+        {
+          username: '3******c',
+          rateTime: 1469281964000,
+          rateType: 0,
+          text: '很喜欢的粥',
+          avatar: 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'
+        },
+        {
+          username: '3******c',
+          rateTime: 1469281964000,
+          rateType: 1,
+          text: '很喜欢的粥',
+          avatar: 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'
+        },
+        {
+          username: '3******c',
+          rateTime: 1469281964000,
+          rateType: 2,
+          text: '很喜欢的粥',
+          avatar: 'http://static.galileo.xiaojukeji.com/static/tms/default_header.png'
+        }
+      ]
     }
   },
   computed: {
     ratings() {
-      return this.food.ratings
+      // return this.food.rate
+      return this.tempRatings
     }
   },
   created() {
@@ -173,7 +162,7 @@ export default {
     width: 100%;
     height: 0;
     padding-top: 100%;
-    .img {
+    img {
       position: absolute;
       top: 0;
       left: 0;
@@ -246,7 +235,7 @@ export default {
       border-radius: 12px;
       font-size: 10px;
       color: #fff;
-      background: blue;
+      background: #00a0dc;
       opacity: 1;
       &.fade-enter-active,
       &.fade-leave-active {
