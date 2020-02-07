@@ -4,39 +4,39 @@
       <div class="overview">
         <h1 class="title">{{ seller.name }}</h1>
         <div class="desc border-bottom-1px">
-          <star :size="36" :score="seller.score" />
-          <span class="text">({{ seller.ratingCount }})</span>
-          <span class="text">月售{{ seller.sellCount }}单</span>
+          <star :size="48" :score="seller.score" />
+          <span class="text">(4)</span>
+          <span class="text">月售{{ seller.mon_sale }}单</span>
         </div>
         <ul class="remark">
           <li class="block">
             <h2>起送</h2>
             <div class="content">
-              <span class="stress">{{ seller.minPrice }}</span>元
+              <span class="stress">{{ seller.send_price }}</span>元
             </div>
           </li>
           <li class="block">
             <h2>商家配送</h2>
             <div class="content">
-              <span class="stress">{{ seller.deliveryPrice }}</span>元
+              <span class="stress">{{ seller.top_up }}</span>元
             </div>
           </li>
           <li class="block">
             <h2>平均配送时间</h2>
             <div class="content">
-              <span class="stress">{{ seller.deliveryTime }}</span>分钟
+              <span class="stress">{{ seller.need_time }}</span>分钟
             </div>
           </li>
         </ul>
         <div class="favorite" @click="toggleFavorite">
-          <span class="icon-favorite" :class="{ active: favorite }"></span>
+          <span class="icon-favorite iconfont" :class="{ active: favorite }">&#xe60d;</span>
           <span class="text">{{ favoriteText }}</span>
         </div>
       </div>
       <div class="bulletin">
         <h1 class="title">公告与活动</h1>
         <div class="content-wrapper border-bottom-1px">
-          <p class="content">{{ seller.bulletin }}</p>
+          <p class="content">{{ seller.synopsis }}</p>
         </div>
         <ul v-if="seller.supports" class="supports">
           <li
@@ -83,8 +83,13 @@
 </template>
 
 <script>
+// 业务组件
 import Star from './star'
 import SupportIco from './supportIco'
+
+// VUEX
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Seller',
   components: {
@@ -115,10 +120,17 @@ export default {
   },
   computed: {
     seller() {
-      return this.data.seller || {}
+      return this.getMerchantDetail() || {}
     },
     favoriteText() {
       return this.favorite ? '已收藏' : '收藏'
+    }
+  },
+  methods: {
+    ...mapGetters('shopDetail', ['getMerchantDetail']),
+    toggleFavorite() {
+      this.favorite = !this.favorite
+      // saveToLocal(this.seller.id, 'favorite', this.favorite)
     }
   }
 }

@@ -27,7 +27,7 @@
       </span>
     </div>
     <div class="switch" :class="{ on: onlyContent }" @click="toggleContent">
-      <span class="icon-check_circle"></span>
+      <span class="icon-check_circle iconfont">&#xe614;</span>
       <span class="text">只看有内容的评价</span>
     </div>
   </div>
@@ -136,7 +136,7 @@ export default {
       }
       .icon-check_circle {
         margin-right: 4px;
-        font-size: 24px;
+        font-size: 12px;
       }
       .text {
          font-size: 12px;

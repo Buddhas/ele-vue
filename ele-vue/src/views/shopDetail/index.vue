@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-05 12:18:35
+ * @LastEditTime : 2020-02-07 15:35:01
  -->
 <template>
   <div class="shop-detail">
@@ -37,15 +37,15 @@ export default {
         {
           label: '商品',
           component: Goods
+        },
+        {
+          label: '评论',
+          component: Ratings
+        },
+        {
+          label: '商家',
+          component: Seller
         }
-        // {
-        //   label: '评论',
-        //   component: Ratings
-        // },
-        // {
-        //   label: '商家',
-        //   component: Seller
-        // }
       ]
     }
   },

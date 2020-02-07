@@ -4,7 +4,7 @@
       <cube-scroll ref="scroll">
         <div class="food-content">
           <div class="image-header">
-            <img :src="'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750'" />
+            <img :src="'http://img4.imgtn.bdimg.com/it/u=1581577444,144697650&fm=26&gp=0.jpg'" />
             <div class="back" @click="hide">
               <i class="icon-arrow_lift iconfont">&#xe670;</i>
             </div>
@@ -43,6 +43,25 @@
               @select="onSelect"
               @toggle="onToggle"
             />
+            <div class="rating-wrapper">
+              <ul v-show="computedRatings && computedRatings.length">
+                <li
+                  v-for="(rating,index) in computedRatings"
+                  :key="index"
+                  class="rating-item border-bottom-1px"
+                >
+                  <div class="user">
+                    <span class="name">{{rating.username}}</span>
+                    <img class="avatar" width="12" height="12" :src="rating.avatar">
+                  </div>
+                  <div class="time">{{format(rating.rateTime)}}</div>
+                  <p class="text">
+                    <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></span>{{rating.text}}
+                  </p>
+                </li>
+              </ul>
+              <div v-show="!computedRatings || !computedRatings.length" class="no-rating">暂无评价</div>
+            </div>
           </div>
         </div>
       </cube-scroll>
