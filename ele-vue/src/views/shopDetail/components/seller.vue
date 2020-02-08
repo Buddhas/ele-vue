@@ -57,11 +57,11 @@
         <cube-scroll class="pic-wrapper" :options="picScrollOptions">
           <ul class="pic-list">
             <li
-              v-for="(pic, index) in seller.pics"
+              v-for="(pic, index) in 3"
               :key="index"
               class="pic-item"
             >
-              <img :src="pic" width="120" height="90" />
+              <img :src="seller.shop_environment ? seller.shop_environment : 'http://img4.imgtn.bdimg.com/it/u=1581577444,144697650&fm=26&gp=0.jpg'" width="120" height="90" />
             </li>
           </ul>
         </cube-scroll>
@@ -69,8 +69,9 @@
       <div class="info">
         <h1 class="title border-bottom-1px">商家信息</h1>
         <ul>
+          <li class="info-item border-bottom-1px">该商家支持发票,请下单写好发票抬头</li>
           <li
-            v-for="(info, index) in seller.infos"
+            v-for="(info, index) in infos"
             :key="index"
             class="info-item border-bottom-1px"
           >
@@ -121,6 +122,20 @@ export default {
   computed: {
     seller() {
       return this.getMerchantDetail() || {}
+    },
+    infos() {
+      const infos = []
+      let categoryString = ''
+      const merDetail = this.getMerchantDetail() || { categorys: [] }
+      if (merDetail.categorys) {
+        categoryString = merDetail.categorys.reduce((pre, next) => {
+          return `${pre},${next}`
+        })
+      }
+      infos.push(`种类：${categoryString}`)
+      infos.push(merDetail.address)
+      infos.push(`营业时间：${merDetail.start_time}-${merDetail.end_time}`)
+      return infos
     },
     favoriteText() {
       return this.favorite ? '已收藏' : '收藏'
