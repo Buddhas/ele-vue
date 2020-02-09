@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="ball-container">
-        <div v-for="(ball, index) in balls" :key="index">
+        <div v-for="(ball,index) in balls" :key="index">
           <transition
             @before-enter="beforeDrop"
             @enter="dropping"
@@ -166,11 +166,11 @@ export default {
       inner.style.transform = inner.style.webkitTransform = `translate3d(${x}px,0,0)`
     },
     dropping(el, done) {
-      el.style.transform = el.style.webkitTransform = `translate3d(0,0,0)`
+      this._reflow = document.body.offsetHeight // 为什么需要触发重绘
       el.style.transform = el.style.webkitTransform = `translate3d(0,0,0)`
       const inner = el.getElementsByClassName(innerClsHook)[0]
       inner.style.transform = inner.style.webkitTransform = `translate3d(0,0,0)`
-      el.addEventListener('transitionend', done) // ?? 有啥用
+      el.addEventListener('transitionend', done)
     },
     afterDrop(el) {
       const ball = this.dropBalls.shift()
@@ -323,14 +323,14 @@ export default {
         position: fixed;
         left: 32px;
         bottom: 22px;
-        z-index: 200;
-        transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41);
+        z-index: 999;
+        transition: all 0.5s cubic-bezier(0.49, -0.29, 0.75, 0.41);
         .inner {
           width: 16px;
           height: 16px;
           border-radius: 50%;
           background: #00a0dc;
-          transition: all 0.4s linear;
+          transition: all 0.5s linear;
         }
       }
     }

@@ -279,7 +279,7 @@ export default {
   z-index: 4;
   height: 100%;
   line-height: 40px;
-  background-color: #ffffff;
+  background-color: #fff;
   .filter-nav {
     flex: 1;
     text-align: center;

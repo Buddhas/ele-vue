@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-03 16:49:44
+ * @LastEditTime : 2020-02-09 17:37:42
  -->
 <template>
   <div class="main-wrapper">
@@ -36,7 +36,8 @@ import { main as api } from '@/api/index'
 
 // mixins
 import LoadingMoreMixin from '@/common/mixins/loadingMore'
-
+// VUEX
+import { mapMutations } from 'vuex'
 export default {
   mixins: [LoadingMoreMixin],
   components: {
@@ -58,9 +59,11 @@ export default {
     this._getMerchantsByPage()
   },
   methods: {
+    ...mapMutations('main', ['MERCHANTCATEGORY']),
     // 获取商铺分类
     _getShopCategory() {
       api.getShopCategory().then((res) => {
+        this.MERCHANTCATEGORY(res.data)
         this.categories.push(res.data.map((item, index) => {
           return {
             id: item.id,
@@ -72,10 +75,6 @@ export default {
     },
     // 获取商铺
     _getMerchantsByPage() {
-      // if (this.page > this.totalPage) {
-      //   this.finallyFlag = true
-      //   return
-      // }
       const params = {
         page: this.page,
         pageSize: this.pageSize
