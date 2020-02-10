@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 基础配置
+ * @version: 1.0
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditors  : 笑佛弥勒
+ * @LastEditTime : 2020-02-10 10:20:45
+ */
 // vue.config.js
 const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
@@ -39,6 +47,11 @@ module.exports = {
         secure: false
       },
       '/mainIndex/*': {
+        target: 'http://127.0.0.1:7001',
+        changeOrigin: true,
+        secure: false
+      },
+      '/merchantCategory/*': {
         target: 'http://127.0.0.1:7001',
         changeOrigin: true,
         secure: false

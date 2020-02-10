@@ -394,6 +394,7 @@ export default {
   height: 40px;
   position: fixed;
   z-index: 101;
+  background: #fff;
 }
 .c3190e8 {
   color: #3190e8 !important;

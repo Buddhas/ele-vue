@@ -7,19 +7,24 @@
           v-for="(item, index) in categories"
           :key="index"
           class="item"
-          :class="[index == selectindex ? 'active' : '']"
-          @click="selectindex = index"
+          :class="[item.id == selectindex ? 'active' : '']"
+          @click="selectCategory(item)"
         >
           {{ item.name }}
         </li>
       </ul>
+      <cube-scroll ref="navScroll" direction="horizontal">
+        <ul class="nav-wrapper">
+          <li v-for="(item, index) in navTxts" :key="index" class="nav-item">{{ item }}</li>
+        </ul>
+      </cube-scroll>
       <div class="btn iconfont" @click="menuFlag = true">&#xe615;</div>
     </div>
     <div class="operator"></div>
     <StoreListHead ref="storeList" :need-fix-top="false" offset-top="40" />
     <div class="shop-list">
       <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
-      <LoadingMore :finally-flag="allLoaded" style="background:#fff"/>
+      <LoadingMore :finally-flag="allLoaded" style="background:#fff" />
     </div>
     <section v-if="menuFlag" class="filter-category">
       <div class="filter-top flex justify_between">
@@ -84,22 +89,9 @@ export default {
   },
   data() {
     return {
-      current: '快车',
-      selectindex: 0,
+      selectindex: this.$route.query.categoryId,
       categories: [],
       merchants: [],
-      labels: [
-        '快车',
-        '小巴',
-        '专车',
-        '顺风车',
-        '代驾',
-        '公交',
-        '自驾租车',
-        '豪华车',
-        '二手车',
-        '出租车'
-      ],
       menuFlag: false,
       scrollOptions: {
         click: false,
@@ -108,8 +100,8 @@ export default {
     }
   },
   created() {
-    this._getShopCategory()
-    this._getMerchantsByPage()
+    this._getSecLevelCategory()
+    this._getMerByCategory()
   },
   mounted() {
     this.setFixTop()
@@ -119,28 +111,34 @@ export default {
     changeHandler(cur) {
       this.current = cur
     },
-    // 获取商铺分类
-    _getShopCategory() {
-      api.getShopCategory().then((res) => {
+    selectCategory(item) {
+      this.selectindex = item.id
+      this.page = 1
+      this.merchants = []
+      this._getMerByCategory()
+    },
+    // 获取商铺二级分类
+    _getSecLevelCategory() {
+      api.getSecLevelCategory({ id: this.$route.query.categoryId }).then((res) => {
         this.categories = res.data
       })
     },
     // 获取商铺
-    _getMerchantsByPage() {
+    _getMerByCategory() {
       const params = {
         page: this.page,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        type: this.selectindex == this.$route.query.categoryId ? 0 : 1,
+        id: this.selectindex
       }
-      api.getMerchantsByPage(params).then((res) => {
+      api.getMerByCategory(params).then((res) => {
         this.totalPage = Math.ceil(res.data.count / this.pageSize)
-        console.log(this.totalPage)
-        console.log(...res.data.rows)
         this.merchants.push(...res.data.rows)
       })
     },
     // 加载更多
     loadingMore() {
-      this._getMerchantsByPage()
+      this._getMerByCategory()
     },
     setFixTop() {
       this.$refs.storeList.setFixTop(true)

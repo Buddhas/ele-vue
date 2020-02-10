@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-09 17:05:59
+ * @LastEditTime : 2020-02-09 22:35:02
  -->
 <template>
   <div class="scroll-food-category">
