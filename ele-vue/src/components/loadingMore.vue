@@ -4,11 +4,11 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-26 16:35:38
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-01-26 16:53:34
+ * @LastEditTime : 2020-02-10 23:13:16
  -->
 <template>
   <div class="loading-more">
-    <cube-loading v-if="false" :size="24" />
+    <cube-loading v-if="!finallyFlag" :size="24" />
     <div v-else class="text">{{ text }}</div>
   </div>
 </template>

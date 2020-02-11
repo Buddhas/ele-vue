@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-09 17:37:42
+ * @LastEditTime : 2020-02-11 23:37:53
  -->
 <template>
   <div class="main-wrapper">
@@ -12,7 +12,7 @@
     <ScrollFoodCategory :categories="categories" />
     <div class="store-list">
       <p class="title flex align_center justify_center">推荐商家</p>
-      <StoreListHead offset-top="66" />
+      <StoreListHead offset-top="66" @selectOrderType="selectOrderType" />
       <div class="shop-list">
         <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
         <LoadingMore :finally-flag="allLoaded" />
@@ -51,7 +51,8 @@ export default {
   data() {
     return {
       categories: [],
-      merchants: []
+      merchants: [],
+      orderType: 0
     }
   },
   created() {
@@ -60,6 +61,13 @@ export default {
   },
   methods: {
     ...mapMutations('main', ['MERCHANTCATEGORY']),
+    selectOrderType(type) {
+      this.orderType = type
+      this.page = 1
+      this.allLoaded = false
+      this.merchants = []
+      this._getMerchantsByPage()
+    },
     // 获取商铺分类
     _getShopCategory() {
       api.getShopCategory().then((res) => {
@@ -77,10 +85,14 @@ export default {
     _getMerchantsByPage() {
       const params = {
         page: this.page,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        orderType: this.orderType
       }
       api.getMerchantsByPage(params).then((res) => {
         this.totalPage = Math.ceil(res.data.count / this.pageSize)
+        if (this.page >= this.totalPage) {
+          this.allLoaded = true
+        }
         this.merchants.push(...res.data.rows)
       })
     },

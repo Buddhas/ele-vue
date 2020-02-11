@@ -13,18 +13,13 @@
           {{ item.name }}
         </li>
       </ul>
-      <cube-scroll ref="navScroll" direction="horizontal">
-        <ul class="nav-wrapper">
-          <li v-for="(item, index) in navTxts" :key="index" class="nav-item">{{ item }}</li>
-        </ul>
-      </cube-scroll>
       <div class="btn iconfont" @click="menuFlag = true">&#xe615;</div>
     </div>
     <div class="operator"></div>
-    <StoreListHead ref="storeList" :need-fix-top="false" offset-top="40" />
+    <StoreListHead ref="storeList" :need-fix-top="false" offset-top="40" @selectOrderType="selectOrderType" />
     <div class="shop-list">
       <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
-      <LoadingMore :finally-flag="allLoaded" style="background:#fff" />
+      <LoadingMore :finally-flag="allLoaded" />
     </div>
     <section v-if="menuFlag" class="filter-category">
       <div class="filter-top flex justify_between">
@@ -33,13 +28,13 @@
       </div>
       <div class="filter-scroller">
         <cube-scroll-nav
-          v-if="categories.length"
+          v-if="allCategory.length"
           :side="true"
-          :data="categories"
+          :data="allCategory"
           :options="scrollOptions"
         >
           <cube-scroll-nav-panel
-            v-for="category in categories"
+            v-for="category in allCategory"
             :key="category.id"
             :label="category.name"
             :title="category.name"
@@ -49,7 +44,7 @@
                 v-for="child in category.child"
                 :key="child.id"
                 class="item flex justify_between"
-                :class="[index == 2 ? 'active' : '']"
+                @touchstart="selectFilterItem(category, child)"
               >
                 <div class="name flex align_center">
                   <img
@@ -91,8 +86,10 @@ export default {
     return {
       selectindex: this.$route.query.categoryId,
       categories: [],
+      allCategory: [],
       merchants: [],
       menuFlag: false,
+      orderType: 0,
       scrollOptions: {
         click: false,
         directionLockThreshold: 0
@@ -102,6 +99,7 @@ export default {
   created() {
     this._getSecLevelCategory()
     this._getMerByCategory()
+    this._getShopCategory()
   },
   mounted() {
     this.setFixTop()
@@ -111,9 +109,26 @@ export default {
     changeHandler(cur) {
       this.current = cur
     },
+    selectOrderType(type) {
+      this.orderType = type
+      this.page = 1
+      this.allLoaded = false
+      this.merchants = []
+      this._getMerByCategory()
+    },
+    selectFilterItem(category, item) {
+      const tempCate = []
+      const first = { id: category.id, name: category.name, pid: -1 }
+      tempCate.push(first)
+      tempCate.push(...category.child)
+      this.categories = tempCate
+      this.menuFlag = false
+      this.selectCategory(item)
+    },
     selectCategory(item) {
       this.selectindex = item.id
       this.page = 1
+      this.allLoaded = false
       this.merchants = []
       this._getMerByCategory()
     },
@@ -129,11 +144,21 @@ export default {
         page: this.page,
         pageSize: this.pageSize,
         type: this.selectindex == this.$route.query.categoryId ? 0 : 1,
+        orderType: this.orderType,
         id: this.selectindex
       }
       api.getMerByCategory(params).then((res) => {
         this.totalPage = Math.ceil(res.data.count / this.pageSize)
+        if (this.page >= this.totalPage) {
+          this.allLoaded = true
+        }
         this.merchants.push(...res.data.rows)
+      })
+    },
+    // 获取所有商铺分类
+    _getShopCategory() {
+      api.getShopCategory().then((res) => {
+        this.allCategory = res.data
       })
     },
     // 加载更多

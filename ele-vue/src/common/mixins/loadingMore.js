@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-26 15:39:12
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-03 15:59:20
+ * @LastEditTime : 2020-02-10 23:15:57
  */
 export default {
   data() {
@@ -30,9 +30,8 @@ export default {
       const totalHeight = parseFloat(windowHeight + scrollTop, 10)
       // 考虑不同浏览器的交互，可能顶部条隐藏之类的，导致页面高度变高
       const browserOffset = 60
-      if (bodyHeight <= totalHeight + browserOffset && this.page < this.totalPage && this.finallyFlag) {
+      if (bodyHeight <= totalHeight + browserOffset && this.page <= this.totalPage) {
         this.page++
-        this.finallyFlag = false
         if (this.page > this.totalPage) {
           this.allLoaded = true
         } else {

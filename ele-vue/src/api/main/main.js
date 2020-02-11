@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:31:49
  * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-10 10:08:26
+ * @LastEditTime : 2020-02-11 23:20:29
  */
 import { get } from '@/common/js/request'
 
@@ -15,7 +15,7 @@ const getShopCategory = (params) => {
 
 // 获取商铺
 const getMerchantsByPage = (params) => {
-  return get('/merchants/findMerchantsByPage', params)
+  return get('/merchants/getMerchantsByPage', params)
 }
 
 // 获取一级分类下的二级分类

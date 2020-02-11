@@ -10,7 +10,10 @@
       <!-- 综合排序列表 -->
       <section class="sort" :class="{ open: showSortFlag }">
         <ul class="item-list">
-          <li v-for="(item, index) in sortItems" :key="index" class="item">{{ item }}</li>
+          <li v-for="(item, index) in sortItems" :key="index" :style="{color: index == currentIndex ? '#3190E8' : '#666'}" class="item flex justify_between" @click="selectOrderType(index)">
+            <span>{{ item }}</span>
+            <i class="iconfont">&#xe615;</i>
+          </li>
         </ul>
       </section>
       <!-- 筛选列表 -->
@@ -61,8 +64,8 @@
           </div>
         </div>
         <div class="btn flex">
-          <div class="btn1">清空</div>
-          <div class="btn2">确定</div>
+          <div class="btn1" @click="handleEmpty">清空</div>
+          <div class="btn2" @click="showScre">确定</div>
         </div>
       </section>
       <div v-if="showSortFlag || showScreeing" class="mask"></div>
@@ -71,6 +74,8 @@
 </template>
 
 <script>
+const SELECT_ORDER_TYPE = 'selectOrderType'
+
 export default {
   props: {
     // 是否需要吸顶
@@ -89,15 +94,12 @@ export default {
   data() {
     return {
       showSortFlag: false,
+      currentIndex: 0,
       sortItems: [
         '综合排序',
         '好评优先',
-        '好评优先',
-        '好评优先',
-        '好评优先',
-        '好评优先',
-        '好评优先',
-        '好评优先'
+        '起送价最低',
+        '配送最快'
       ],
       // 商家服务
       shopService: [
@@ -186,8 +188,10 @@ export default {
       ],
       // 选中商家服务
       checkerValue: [],
+      // 选中优惠活动
       actIndex: -1,
-      perIndex: -1,
+      // 选中人均服务
+      perIndex: -1, 
       showScreeing: false,
       container: null,
       fixTop: false,
@@ -201,8 +205,18 @@ export default {
     document.removeEventListener('scroll')
   },
   methods: {
+    handleEmpty() {
+      this.checkerValue = []
+      this.actIndex = -1
+      this.perIndex = -1
+    },
     setFixTop(boolean) {
       this.fixTop = boolean
+    },
+    selectOrderType(index) {
+      this.currentIndex = index
+      this.showSort()
+      this.$emit(SELECT_ORDER_TYPE, index)
     },
     initData() {
       if (this.needFixTop) {
@@ -305,7 +319,7 @@ export default {
   .item {
     font-size: 14px;
     color: black;
-    padding-left: 20px;
+    padding: 0px 20px;
     line-height: 40px;
   }
 }
