@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditors  : 笑佛弥勒
+ * @LastEditTime : 2020-02-11 23:55:32
+ -->
 <template>
   <section class="foot-guide flex align_center">
     <div v-for="(item, index) in guideLists" :key="index" class="item">
@@ -13,16 +21,16 @@ export default {
     return {
       guideLists: [
         {
-          icon: '&#xe734;',
+          icon: '&#xe612;',
           name: '首页'
         }, {
-          icon: '&#xe734;',
+          icon: '&#xe60a;',
           name: '搜索'
         }, {
-          icon: '&#xe734;',
+          icon: '&#xe76d;',
           name: '订单'
         }, {
-          icon: '&#xe734;',
+          icon: '&#xe651;',
           name: '我的'
         }
       ]
