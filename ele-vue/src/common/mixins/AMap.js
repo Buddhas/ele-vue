@@ -1,15 +1,33 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-20 20:41:57
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-02-16 16:27:54
+ */
+import { mapGetters } from 'vuex'
 // 高德地图定位
 export const AMapService = {
   data() {
     return {
       mapObj: '',
+      positionFinallyFlag: false,
+      currentPosition: '正在定位...', // 当前地址
+      locationFlag: false, // 定位结果
       longitude: '', // 经度
       latitude: '', // 纬度
-      currentCity: 'shenzhen', // 当前城市
       searchRes: [] // 搜索结果
     }
   },
+  computed: {
+    // 当前城市
+    currentCity() {
+      return this.getCurrentCity()
+    }
+  },
   methods: {
+    ...mapGetters('address', ['getCurrentCity']),
     initAMap() {
       this.mapObj = new AMap.Map('iCenter')
     },
@@ -27,9 +45,19 @@ export const AMapService = {
           if (status === 'complete') {
             that.longitude = result.position.lng
             that.latitude = result.position.lat
+            that.currentPosition = result.formattedAddress
+            that.locationFlag = true
           } else {
-            that.$message.error('定位失败，请刷新浏览器重试')
+            that.locationFlag = false
+            that.currentPosition = '定位失败'
+            const toast = that.$createToast({
+              time: 2000,
+              type: 'txt',
+              txt: '定位失败'
+            })
+            toast.show()
           }
+          this.positionFinallyFlag = true
         })
       })
     },
@@ -40,8 +68,8 @@ export const AMapService = {
         // 实例化Autocomplete
         var autoOptions = {
           // city 限定城市，默认全国
-          city: that.currentCity || '全国',
-          citylimit: true
+          city: that.currentCity || '深圳',
+          citylimit: false
         }
         var autoComplete = new AMap.Autocomplete(autoOptions)
         autoComplete.search(keyword, function(status, result) {
@@ -50,6 +78,7 @@ export const AMapService = {
             that.$nextTick(() => {
               that.searchRes = []
               that.searchRes = result.tips
+              console.log(that.searchRes)
             })
           }
         })

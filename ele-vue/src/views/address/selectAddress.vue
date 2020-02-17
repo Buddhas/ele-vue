@@ -3,7 +3,7 @@
     <Header :title="title" />
     <section class="top flex">
       <div class="left flex justify_between align_center">
-        <span class="elli name">深圳</span>
+        <span class="elli name" @click="toSelectCity">{{ currentCity.name }}</span>
         <span class="iconfont" style="font-size:10px;">&#xe626;</span>
       </div>
       <div class="right">
@@ -13,14 +13,14 @@
         </div>
       </div>
     </section>
-    <section v-if="false" class="no-select-items">
+    <section v-if="showMyAddressFlag" class="no-select-items">
       <section class="current">
         <div class="title">当前地址</div>
         <div class="current-address flex">
-          <span class="text">东华理工大学</span>
+          <span class="text">{{ currentPosition }}</span>
           <div class="icon">
             <span class="iconfont ">&#xe624;</span>
-            <span style="margin-left:5px">重新加载</span>
+            <span style="margin-left:5px" @click="geoLocation">重新加载</span>
           </div>
         </div>
       </section>
@@ -37,14 +37,17 @@
       </section>
     </section>
     <section v-else class="select-items">
-      <AddItem v-for="(item, index) in 10" :key="index" />
+      <AddItem v-for="(item, index) in searchRes" :key="index" :keyword="keyword" :address-item="item" />
+      <div v-if="searchRes.length == 0">暂无数据</div>
     </section>
   </div>
 </template>
 
 <script>
+// 业务组件
 import Header from '@/components/header'
 import AddItem from './components/addItem'
+// mixins
 import { AMapService } from '@/common/mixins/AMap'
 export default {
   mixins: [AMapService],
@@ -56,6 +59,16 @@ export default {
     return {
       title: '选择收货地址',
       keyword: ''
+    }
+  },
+  computed: {
+    showMyAddressFlag() {
+      return this.keyword.length > 0 ? false : true
+    }
+  },
+  methods: {
+    toSelectCity() {
+      this.$router.push({ path: './cityList.html' })
     }
   },
   watch: {
@@ -72,10 +85,10 @@ export default {
     background-color: #ffffff;
     padding: 10px 15px;
     .left {
-      width: 40px;
+      width: 50px;
       line-height: 30px;
       .name {
-        max-width: 30px;
+        max-width: 50px;
       }
     }
     .right {
