@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-02-16 16:50:10
+ * @LastEditTime: 2020-02-17 23:51:06
  */
 const index = () => import(/* webpackChunkName: "addressIndex" */ '@/views/address/index')
 const addAddress = () => import(/* webpackChunkName: "addAddress" */ '@/views/address/addAddress')
