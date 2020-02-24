@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-02-17 23:53:24
+ * @LastEditTime: 2020-02-24 23:02:42
  */
 // vue.config.js
 const path = require('path')
@@ -57,6 +57,11 @@ module.exports = {
         secure: false
       },
       '/userAddress/*': {
+        target: 'http://127.0.0.1:7001',
+        changeOrigin: true,
+        secure: false
+      },
+      '/user/*': {
         target: 'http://127.0.0.1:7001',
         changeOrigin: true,
         secure: false

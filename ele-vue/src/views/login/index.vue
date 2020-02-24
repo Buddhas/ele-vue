@@ -5,11 +5,12 @@
     </div>
     <div class="message-wrapper">
       <section class="tel-input input-wrapper">
-        <input type="tel" maxlength="11" placeholder="邮箱">
-        <span class="code-btn">获取验证码</span>
+        <input v-model="email" placeholder="邮箱">
+        <span v-if="!getCodeFlag" class="code-btn" :style="{color: correntEmialFlag ? '#2395ff' : '#ccc'}" @click="getCode">获取验证码</span>
+        <span v-else class="code-btn" style="color:#ccc">已发送({{remainTime}}s)</span>
       </section>
       <section class="code-input input-wrapper">
-        <input type="number" maxlength="4" placeholder="验证码">
+        <input v-model="code" type="number" maxlength="4" placeholder="验证码">
       </section>
       <section class="explain">
         新用户登录即自动注册，并表示已同意
@@ -17,14 +18,84 @@
         和
         <a href="http://terms.alicdn.com/legal-agreement/terms/suit_bu1_other/suit_bu1_other201903051859_43484.html">《饿了么隐私权政策》</a>
       </section>
-      <section class="login-btn">
+      <section class="login-btn" @click="login">
         登录
       </section>
       <section class="about">关于我们</section>
     </div>
   </div>
 </template>
-
+<script>
+// api请求
+import { login as api } from '@/api/index'
+export default {
+  data() {
+    return {
+      email: '',
+      code: '',
+      getCodeFlag: false,
+      remainTime: 300,
+      toast: this.$createToast({
+        time: 2000,
+        type: 'txt',
+        txt: this.txt
+      }),
+      txt: '请输入正确手机号',
+      reg: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/
+    }
+  },
+  computed: {
+    correntEmialFlag() {
+      return this.reg.test(this.email)
+    }
+  },
+  methods: {
+    getCode() {
+      if (this.correntEmialFlag) {
+        const params = {
+          email: this.email
+        }
+        api.sendEmail(params).then((res) => {
+          if (res.status == 200) {
+            this.getCodeFlag = true
+            setInterval(() => {
+              if (this.remainTime == 1) {
+                this.getCodeFlag = false
+              } else {
+                this.remainTime--
+              }
+            }, 1000)
+          }
+        })
+      }
+    },
+    checkoutParams() {
+      if (!this.correntEmialFlag) {
+        this.txt = '请输入正确邮箱'
+        return false
+      } else if (this.code.length == 0 || !Number(this.code)) {
+        this.txt = '请输入正确验证码'
+      }
+      return true
+    },
+    login() {
+      if (this.checkoutParams()) {
+        const params = {
+          email: this.email,
+          code: this.code
+        }
+        api.login(params).then((res) => {
+          if (res.status == 200) {
+            console.log('成功')
+          } else {
+            console.log('失败')
+          }
+        })
+      }
+    }
+  }
+}
+</script>
 <style lang="scss" scoped>
   .login-wrapper {
     width: 100%;
