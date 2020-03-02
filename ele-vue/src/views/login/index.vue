@@ -35,12 +35,12 @@ export default {
       code: '',
       getCodeFlag: false,
       remainTime: 300,
+      txt: '请输入正确手机号',
       toast: this.$createToast({
         time: 2000,
         type: 'txt',
         txt: this.txt
       }),
-      txt: '请输入正确手机号',
       reg: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/
     }
   },
@@ -58,6 +58,10 @@ export default {
         api.sendEmail(params).then((res) => {
           if (res.status == 200) {
             this.getCodeFlag = true
+            this.$createDialog({
+              title: '验证码',
+              content: `您的验证码是：${res.data}`
+            }).show()
             setInterval(() => {
               if (this.remainTime == 1) {
                 this.getCodeFlag = false
@@ -65,6 +69,11 @@ export default {
                 this.remainTime--
               }
             }, 1000)
+          } else {
+            this.$createDialog({
+              title: '验证码',
+              content: res.message
+            }).show()
           }
         })
       }
@@ -86,9 +95,11 @@ export default {
         }
         api.login(params).then((res) => {
           if (res.status == 200) {
-            console.log('成功')
+            this.txt = '登陆成功'
+            this.toast.show()
           } else {
-            console.log('失败')
+            this.txt = '登陆失败'
+            this.toast.show()
           }
         })
       }
