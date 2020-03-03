@@ -95,11 +95,18 @@ export default {
         }
         api.login(params).then((res) => {
           if (res.status == 200) {
-            this.txt = '登陆成功'
-            this.toast.show()
+            debugger
+            if (this.$route.query.redirect_url) {
+              this.$router.push({ path: this.$route.query.redirect_url })
+            } else {
+              this.$router.push({ path: '../main/index.html' })
+            }
           } else {
-            this.txt = '登陆失败'
-            this.toast.show()
+            this.$createToast({
+              time: 2000,
+              type: 'txt',
+              txt: '登陆失败'
+            }).show()
           }
         })
       }
