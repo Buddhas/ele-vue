@@ -1,12 +1,20 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-20 20:41:57
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-04 23:54:14
+ -->
 <template>
   <section class="address-item">
     <div class="user-info">
-      <span style="color: #333;font-weight: 700;margin-right:5px">陈斌</span><span style="margin-right:5px">先生</span><span>17688702092</span>
+      <span style="color: #333;font-weight: 700;margin-right:5px">{{ address.user_name }}</span><span style="margin-right:5px">{{ address.sex == 0 ? '先生' : '女士' }}</span><span>{{ address.mobile }}</span>
     </div>
     <div class="flex bottom">
       <div class="message flex align_center">
-        <span class="home">家</span>
-        <span class="detail">德力西大厦十二楼德力西大厦十二楼德力西大</span>
+        <span class="home">{{ address.label == 0 ? '家' : address.label == 1 ? '学校' : '公司' }}</span>
+        <span class="detail">{{ address.address }} {{address.detail}}</span>
       </div>
       <div class="icon-wrapper">
         <span>1</span>
@@ -15,6 +23,17 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  props: {
+    address: {
+      type: Object,
+      default: () => {}
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
   .address-item {

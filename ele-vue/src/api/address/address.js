@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:31:49
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-02-18 15:53:18
+ * @LastEditTime: 2020-03-04 23:43:58
  */
 import { get, post } from '@/common/js/request'
 
@@ -18,7 +18,7 @@ const createdAddress = (params) => {
   return post('/userAddress/createdAddress', params)
 }
 
-// 新增地址
+// 更新地址
 const updatedAddress = (params) => {
   return post('/userAddress/updatedAddress', params)
 }
@@ -28,9 +28,14 @@ const deleteAddress = (params) => {
   return get('/userAddress/deleteAddress', params)
 }
 
-// 获取地址地址
+// 获取单个地址
 const getAddressById = (params) => {
   return get('/userAddress/getAddressById', params)
+}
+
+// 获取地址列表
+const getAddressList = (params) => {
+  return get('/userAddress/getAddressList', params)
 }
 
 export default {
@@ -38,5 +43,6 @@ export default {
   createdAddress,
   updatedAddress,
   deleteAddress,
-  getAddressById
+  getAddressById,
+  getAddressList
 }

@@ -1,8 +1,16 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-20 20:41:57
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-04 23:56:06
+ -->
 <template>
   <div class="address-index-wrapper">
     <Header />
     <div class="item-wrapper">
-      <Item v-for="(item, index) in 10" :key="index" />
+      <Item v-for="(item, index) in allAddressList" :key="index" :address="item" />
     </div>
     <div class="bottom">
       新增地址
@@ -11,19 +19,36 @@
 </template>
 
 <script>
+// 业务组件
 import Item from './components/item'
 import Header from '@/components/header'
+// api请求
+import { address as api } from '@/api/index'
 export default {
   components: {
     Item,
     Header
-  }
+  },
+  data() {
+    return {
+      allAddressList: []
+    }
+  },
+  created() {
+    this._getAddressList()
+  },
+  methods: {
+    _getAddressList() {
+      api.getAddressList().then((res) => {
+        this.allAddressList = res.data
+      })
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
   .address-index-wrapper {
     width: 100%;
-    background-color: #fff;
     .item-wrapper {
       padding-bottom: 60px;
     }
