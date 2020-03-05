@@ -4,15 +4,15 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-04 23:56:06
+ * @LastEditTime: 2020-03-05 23:28:08
  -->
 <template>
   <div class="address-index-wrapper">
     <Header />
     <div class="item-wrapper">
-      <Item v-for="(item, index) in allAddressList" :key="index" :address="item" />
+      <Item v-for="(item, index) in allAddressList" :key="index" :address="item" @deleteAddress="_getAddressList" />
     </div>
-    <div class="bottom">
+    <div class="bottom" @click="toAddAddress">
       新增地址
     </div>
   </div>
@@ -42,8 +42,11 @@ export default {
       api.getAddressList().then((res) => {
         this.allAddressList = res.data
       })
+    },
+    toAddAddress() {
+      this.$router.push({ path: './addAddress.html' })
     }
-  },
+  }
 }
 </script>
 <style lang="scss" scoped>

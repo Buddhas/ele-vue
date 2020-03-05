@@ -95,7 +95,6 @@ export default {
         }
         api.login(params).then((res) => {
           if (res.status == 200) {
-            debugger
             if (this.$route.query.redirect_url) {
               this.$router.push({ path: this.$route.query.redirect_url })
             } else {

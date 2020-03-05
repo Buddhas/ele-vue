@@ -1,6 +1,14 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-20 20:41:57
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-05 22:45:02
+ -->
 <template>
   <header class="header-wrapper">
-    <div class="header flex align_center justify_center" :style="{backgroundColor:bgColor}">
+    <div class="header flex align_center justify_center" :style="{backgroundColor:bgColor}" @click="goBack">
       <span class="iconfont icon">&#xe670;</span>
       <div class="text flex align_center justify_center">
         <h1 class="elli">{{ title }}</h1>
@@ -20,6 +28,19 @@ export default {
     bgColor: {
       type: String,
       default: '#00A0FF'
+    },
+    defaultJump: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    goBack() {
+      if (this.defaultJump) {
+        this.$router.go(-1)
+      } else {
+        this.$emit('customJump')
+      }
     }
   }
 }

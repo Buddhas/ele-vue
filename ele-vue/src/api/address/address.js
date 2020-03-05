@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:31:49
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-04 23:43:58
+ * @LastEditTime: 2020-03-05 23:24:18
  */
 import { get, post } from '@/common/js/request'
 
@@ -25,7 +25,7 @@ const updatedAddress = (params) => {
 
 // 新增地址
 const deleteAddress = (params) => {
-  return get('/userAddress/deleteAddress', params)
+  return post('/userAddress/deleteAddress', params)
 }
 
 // 获取单个地址
