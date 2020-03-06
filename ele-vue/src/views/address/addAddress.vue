@@ -14,15 +14,15 @@
           <div class="label-wrapper flex">
             <div
               class="label-item"
-              :class="{ active: address.sex == 0 }"
-              @click="address.sex = 0"
+              :class="{ active: address.sex == 1 }"
+              @click="address.sex = 1"
             >
               先生
             </div>
             <div
               class="label-item"
-              :class="{ active: address.sex == 1 }"
-              @click="address.sex = 1"
+              :class="{ active: address.sex == 2 }"
+              @click="address.sex = 2"
             >
               女士
             </div>
@@ -82,22 +82,22 @@
           <div class="label-wrapper flex">
             <div
               class="label-item"
-              :class="{ active: address.label == 0 }"
-              @click="address.label = 0"
+              :class="{ active: address.label == 1 }"
+              @click="address.label = 1"
             >
               家
             </div>
             <div
               class="label-item"
-              :class="{ active: address.label == 1 }"
-              @click="address.label = 1"
+              :class="{ active: address.label == 2 }"
+              @click="address.label = 2"
             >
               学校
             </div>
             <div
               class="label-item"
-              :class="{ active: address.label == 2 }"
-              @click="address.label = 2"
+              :class="{ active: address.label == 3 }"
+              @click="address.label = 3"
             >
               公司
             </div>
@@ -135,12 +135,11 @@ export default {
       }),
       address: {
         user_name: '',
-        sex: 0,
+        sex: 1,
         mobile: '',
         address: '',
         detail: '',
-        label: 0,
-        user_id: '1'
+        label: 1
       }
     }
   },

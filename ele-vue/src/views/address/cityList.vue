@@ -25,7 +25,7 @@ import Header from '@/components/header'
 // api请求
 import { address as api } from '@/api/index'
 // VUEX
-import { mapMutations, mapGetters } from 'VUEX'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   components: {
     Header

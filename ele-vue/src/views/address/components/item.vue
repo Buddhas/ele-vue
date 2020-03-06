@@ -9,11 +9,11 @@
 <template>
   <section class="address-item" @click="toEditAddress">
     <div class="user-info">
-      <span style="color: #333;font-weight: 700;margin-right:5px">{{ address.user_name }}</span><span style="margin-right:5px">{{ address.sex == 0 ? '先生' : '女士' }}</span><span>{{ address.mobile }}</span>
+      <span style="color: #333;font-weight: 700;margin-right:5px">{{ address.user_name }}</span><span style="margin-right:5px">{{ address.sex == 1 ? '先生' : '女士' }}</span><span>{{ address.mobile }}</span>
     </div>
     <div class="flex bottom">
       <div class="message flex align_center">
-        <span :class="[address.label == 0 ? 'home' : address.label == 1 ? 'school' : 'company']">{{ address.label == 0 ? '家' : address.label == 1 ? '学校' : '公司' }}</span>
+        <span :class="[address.label == 1 ? 'home' : address.label == 2 ? 'school' : 'company']">{{ address.label == 1 ? '家' : address.label == 2 ? '学校' : '公司' }}</span>
         <span class="detail">{{ address.address }} {{address.detail}}</span>
       </div>
       <div class="icon-wrapper">
@@ -35,15 +35,35 @@ export default {
   },
   methods: {
     toEditAddress() {
-      this.$router.push({ path: './addAddress.html', query: { id: this.address.id }})
+      this.$router.push({ path: './addAddress.html', query: { addressId: this.address.id, isEdit: 1 }})
     },
     _deleteAddress() {
-      const params = {
-        id: this.address.id
-      }
-      api.deleteAddress(params).then((res) => {
-        this.$emit('deleteAddress')
-      })
+      this.$createDialog({
+        type: 'confirm',
+        icon: 'cubeic-alert',
+        title: '温馨提示',
+        content: '确定删除地址？',
+        confirmBtn: {
+          text: '确定',
+          active: true,
+          disabled: false,
+          href: 'javascript:;'
+        },
+        cancelBtn: {
+          text: '取消',
+          active: false,
+          disabled: false,
+          href: 'javascript:;'
+        },
+        onConfirm: () => {
+          const params = {
+            id: this.address.id
+          }
+          api.deleteAddress(params).then((res) => {
+            this.$emit('deleteAddress')
+          })
+        }
+      }).show()
     }
   }
 }

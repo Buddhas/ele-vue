@@ -13,7 +13,7 @@
       <Item v-for="(item, index) in allAddressList" :key="index" :address="item" @deleteAddress="_getAddressList" />
     </div>
     <div class="bottom" @click="toAddAddress">
-      新增地址
+      <span class="iconfont" style="margin-right:5px">&#xe61c;</span>新增地址
     </div>
   </div>
 </template>
