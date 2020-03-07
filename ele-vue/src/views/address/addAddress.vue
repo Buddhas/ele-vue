@@ -1,6 +1,6 @@
 <template>
   <div class="address-wrapper">
-    <Header :title="title" />
+    <Header :title="title" :default-jump="false" @customJump="toAddressIndex" />
     <section class="user-info">
       <!-- 联系人 -->
       <section class="flex section-1 section">
@@ -49,13 +49,14 @@
         <div class="left">
           地址
         </div>
-        <div class="right">
-          <div class="input-wrapper">
+        <div class="right" @click="toSearchAddress">
+          <div class="input-wrapper flex justify_between">
             <input
               v-model="address.address"
               type="text"
               placeholder="小区/写字楼/学校等"
             />
+            <span class="iconfont">&#xe60b;</span>
           </div>
         </div>
       </section>
@@ -149,6 +150,12 @@ export default {
     }
   },
   methods: {
+    toAddressIndex() {
+      this.$router.push({ path: './index.html' })
+    },
+    toSearchAddress() {
+      this.$router.push({ path: './searchAddress.html' })
+    },
     selectSex(val) {
       this.address.sex = val
     },
@@ -234,7 +241,7 @@ export default {
       .right {
         flex: 1;
         .input-wrapper {
-          padding: 14px 0px;
+          padding: 15px 20px 15px 0px;
           border-bottom: 1px solid #f9f9f9;
           input {
             line-height: 16px;

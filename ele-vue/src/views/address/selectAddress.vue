@@ -24,20 +24,26 @@
           </div>
         </div>
       </section>
-      <section class="my-address">
+      <section v-if="allAddressList.length > 0" class="my-address">
         <div class="title">收货地址</div>
-        <div class="item">
+        <div v-for="(item, index) in allAddressList" :key="index" class="item" @click="selectItem({name:item.address+item.detail})">
           <div class="part-1 elli">
-            <span class="name">陈斌</span>
-            <span class="sex">先生</span>
-            <span class="phone">17688702092</span>
+            <span class="name">{{ item.user_name }}</span>
+            <span class="sex">{{ item.sex == 1 ? '先生' : '女士' }}</span>
+            <span class="phone">{{ item.mobile }}</span>
           </div>
-          <div class="part-2 elli">港龙舞蹈罗湖火车站校区</div>
+          <div class="part-2 elli">{{ item.address }} {{item.detail}}</div>
         </div>
       </section>
     </section>
     <section v-else class="select-items">
-      <AddItem v-for="(item, index) in searchRes" :key="index" :keyword="keyword" :address-item="item" />
+      <AddItem
+        v-for="(item, index) in searchRes"
+        :key="index"
+        :keyword="keyword"
+        :address-item="item"
+        @selectItem="selectItem"
+      />
       <div v-if="searchRes.length == 0">暂无数据</div>
     </section>
   </div>
@@ -49,6 +55,10 @@ import Header from '@/components/header'
 import AddItem from './components/addItem'
 // mixins
 import { AMapService } from '@/common/mixins/AMap'
+// VUEX
+import { mapMutations } from 'vuex'
+// api请求
+import { address as api } from '@/api/index'
 export default {
   mixins: [AMapService],
   components: {
@@ -58,7 +68,8 @@ export default {
   data() {
     return {
       title: '选择收货地址',
-      keyword: ''
+      keyword: '',
+      allAddressList: []
     }
   },
   computed: {
@@ -66,7 +77,20 @@ export default {
       return this.keyword.length > 0 ? false : true
     }
   },
+  created() {
+    this._getAddressList()
+  },
   methods: {
+    ...mapMutations('address', ['SHIPADDRESS']),
+    selectItem(item) {
+      this.SHIPADDRESS(item.name)
+      this.$router.go(-1)
+    },
+    _getAddressList() {
+      api.getAddressList().then((res) => {
+        this.allAddressList = res.data
+      })
+    },
     toSelectCity() {
       this.$router.push({ path: './cityList.html' })
     }

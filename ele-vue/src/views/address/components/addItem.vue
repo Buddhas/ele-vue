@@ -4,10 +4,10 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-02-17 09:51:42
+ * @LastEditTime: 2020-03-07 11:37:04
  -->
 <template>
-  <section class="address-item-wrapper flex">
+  <section class="address-item-wrapper flex" @click="selectItem">
     <div class="left">
       <!-- eslint-disable -->
       <p class="part-1" v-html="$options.filters.format(addressItem.name, stress, keyword)"></p>
@@ -43,6 +43,11 @@ export default {
       } else {
         return text
       }
+    }
+  },
+  methods: {
+    selectItem() {
+      this.$emit('selectItem', this.addressItem)
     }
   }
 }

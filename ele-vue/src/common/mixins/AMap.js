@@ -1,10 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion: 高德地图mixins
+ * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-02-16 16:27:54
+ * @LastEditTime: 2020-03-07 21:04:19
  */
 import { mapGetters } from 'vuex'
 // 高德地图定位
@@ -57,7 +57,7 @@ export const AMapService = {
             })
             toast.show()
           }
-          this.positionFinallyFlag = true
+          that.positionFinallyFlag = true
         })
       })
     },
@@ -68,7 +68,7 @@ export const AMapService = {
         // 实例化Autocomplete
         var autoOptions = {
           // city 限定城市，默认全国
-          city: that.currentCity || '深圳',
+          city: that.currentCity || '全国',
           citylimit: false
         }
         var autoComplete = new AMap.Autocomplete(autoOptions)
@@ -78,7 +78,6 @@ export const AMapService = {
             that.$nextTick(() => {
               that.searchRes = []
               that.searchRes = result.tips
-              console.log(that.searchRes)
             })
           }
         })

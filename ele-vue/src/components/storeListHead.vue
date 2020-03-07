@@ -10,9 +10,15 @@
       <!-- 综合排序列表 -->
       <section class="sort" :class="{ open: showSortFlag }">
         <ul class="item-list">
-          <li v-for="(item, index) in sortItems" :key="index" :style="{color: index == currentIndex ? '#3190E8' : '#666'}" class="item flex justify_between" @click="selectOrderType(index)">
+          <li
+            v-for="(item, index) in sortItems"
+            :key="index"
+            :style="{color: index == currentIndex ? '#3190E8' : '#666'}"
+            class="item flex justify_between"
+            @click="selectOrderType(index)"
+          >
             <span>{{ item }}</span>
-            <i class="iconfont">&#xe615;</i>
+            <i class="iconfont">&#xe650;</i>
           </li>
         </ul>
       </section>
@@ -202,7 +208,9 @@ export default {
     this.initData()
   },
   destroyed() {
-    document.removeEventListener('scroll')
+    if (this.needFixTop) {
+      document.removeEventListener('scroll', this.handleCheck)
+    }
   },
   methods: {
     handleEmpty() {

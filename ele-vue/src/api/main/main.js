@@ -3,8 +3,8 @@
  * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-22 16:31:49
- * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-11 23:20:29
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-07 15:53:27
  */
 import { get } from '@/common/js/request'
 
@@ -33,10 +33,15 @@ const getMerByCategory = (params) => {
   return get('/merchants/getMerByCategory', params)
 }
 
+// 根据名称模糊搜索商户
+const getMerByKeyword = (params) => {
+  return get('/merchants/getMerByKeyword', params)
+}
 export default {
   getShopCategory,
   getMerchantsByPage,
   getSecLevelCategory,
   getSecLevelFoodCount,
-  getMerByCategory
+  getMerByCategory,
+  getMerByKeyword
 }

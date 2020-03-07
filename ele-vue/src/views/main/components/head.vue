@@ -1,11 +1,10 @@
 <template>
   <div class="head">
-    <div class="address">
+    <div class="address elli" @click="toSelectAddress">
       <span class="iconfont">&#xe734;</span>
-      <span class="address-info">中国工商银行(市民中心支行)</span>
-      <span class="iconfont">&#xe615;</span>
+      <span class="address-info">{{ getShipAddress || '请选择收货地址' }}</span>
     </div>
-    <div id="head">
+    <div class="search-wrapper" @click="search">
       <div class="search" :class="{ fixed: fixTop }">
         <div class="search-box">搜索饿了么商家、商品名称</div>
       </div>
@@ -15,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     // 是否需要吸顶
@@ -30,15 +30,24 @@ export default {
       container: null
     }
   },
+  computed: {
+    ...mapGetters('address', ['getShipAddress'])
+  },
   mounted() {
     this.initData()
   },
   methods: {
+    toSelectAddress() {
+      this.$router.push({ path: '../address/selectAddress.html' })
+    },
     initData() {
       if (this.needFixTop) {
-        this.container = document.getElementById('head')
+        this.container = document.getElementsByClassName('search-wrapper')[0]
         document.addEventListener('scroll', this.handleCheck)
       }
+    },
+    search() {
+      this.$router.push({ path: './search.html' })
     },
     handleCheck() {
       this.checkFix(this.container)
@@ -62,6 +71,7 @@ export default {
     position: relative;
   }
   .text {
+    margin-top: -1px;
     display: block;
     position: relative;
     width: 100%;
@@ -75,8 +85,8 @@ export default {
     font-size: 18px;
     color: #ffffff;
     .address-info {
+      max-width: 60%;
       display: inline-block;
-      width: 60%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
