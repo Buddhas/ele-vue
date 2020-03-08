@@ -3,8 +3,8 @@
  * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
- * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-09 22:35:02
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-08 16:40:10
  -->
 <template>
   <div class="scroll-food-category">
@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     changePage(current) {
-      console.log('当前轮播图序号为:' + current)
     },
     clickHandler(item, index) {
       this.$router.push({ path: './searchSource.html', query: { categoryId: item.id }})

@@ -1,6 +1,7 @@
 <template>
   <div class="address-wrapper">
-    <Header :title="title" :default-jump="false" @customJump="toAddressIndex" />
+    <!-- <Header :title="title" :default-jump="false" @customJump="toAddressIndex" /> -->
+    <Header :title="title" />
     <section class="user-info">
       <!-- 联系人 -->
       <section class="flex section-1 section">
@@ -117,10 +118,20 @@
 import Header from '@/components/header'
 // api请求
 import { address as api } from '@/api/index'
-
+// VUEX
+import { mapMutations, mapGetters } from 'vuex'
 export default {
+  name: 'AddAddress',
   components: {
     Header
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.name == 'searchAddress') {
+      this.ADDCACHE('AddAddress')
+    } else {
+      this.DELCACHE('AddAddress')
+    }
+    next()
   },
   data() {
     return {
@@ -141,8 +152,12 @@ export default {
         address: '',
         detail: '',
         label: 1
-      }
+      },
+      isFromApiFlag: false
     }
+  },
+  computed: {
+    ...mapGetters('address', ['getSearchAddress'])
   },
   created() {
     if (this.isEdit) {
@@ -150,6 +165,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('common', ['ADDCACHE', 'DELCACHE']),
     toAddressIndex() {
       this.$router.push({ path: './index.html' })
     },
@@ -182,14 +198,14 @@ export default {
     },
     // 获取地址
     _getAddressById() {
-      api.getAddressById({ id: this.$route.query.addressId }).then((res) => {
+      api.getAddressById({ id: this.$route.query.addressId }).then(res => {
         this.address = res.data
       })
     },
     // 新增地址
     _createdAddress() {
       if (this.checkParams()) {
-        api.createdAddress(this.address).then((res) => {
+        api.createdAddress(this.address).then(res => {
           if (res.status == 200) {
             this.settingToast('添加成功')
             this.$router.push({ path: './index.html' })
@@ -202,7 +218,7 @@ export default {
     // 更新地址
     _updatedAddress() {
       if (this.checkParams(this.address)) {
-        return api.updatedAddress(this.address).then((res) => {
+        return api.updatedAddress(this.address).then(res => {
           if (res.status == 200) {
             this.settingToast('更新成功')
             this.$router.push({ path: './index.html' })
@@ -218,6 +234,11 @@ export default {
       } else {
         this._createdAddress()
       }
+    }
+  },
+  watch: {
+    getSearchAddress() {
+      this.address.address = this.getSearchAddress
     }
   }
 }

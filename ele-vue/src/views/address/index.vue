@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-05 23:28:08
+ * @LastEditTime: 2020-03-08 17:51:42
  -->
 <template>
   <div class="address-index-wrapper">
@@ -24,7 +24,10 @@ import Item from './components/item'
 import Header from '@/components/header'
 // api请求
 import { address as api } from '@/api/index'
+// VUEX
+import { mapMutations } from 'vuex'
 export default {
+  name: 'AddressIndex',
   components: {
     Item,
     Header
@@ -36,8 +39,10 @@ export default {
   },
   created() {
     this._getAddressList()
+    this.ADDCACHE('AddressIndex')
   },
   methods: {
+    ...mapMutations('common', ['ADDCACHE']),
     _getAddressList() {
       api.getAddressList().then((res) => {
         this.allAddressList = res.data

@@ -7,7 +7,7 @@
           v-for="(item, index) in categories"
           :key="index"
           class="item"
-          :class="[item.id == selectindex ? 'active' : '']"
+          :class="[item.id == selectindex.id ? 'active' : '']"
           @click="selectCategory(item)"
         >
           {{ item.name }}
@@ -74,8 +74,9 @@ import LoadingMoreMixin from '@/common/mixins/loadingMore'
 // api请求
 import { main as api } from '@/api/index'
 // VUEX
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
+  name: 'SearchSource',
   mixins: [LoadingMoreMixin],
   components: {
     StoreListHead,
@@ -84,7 +85,7 @@ export default {
   },
   data() {
     return {
-      selectindex: this.$route.query.categoryId,
+      selectindex: { id: this.$route.query.categoryId, pid: -1 },
       categories: [],
       allCategory: [],
       merchants: [],
@@ -96,6 +97,14 @@ export default {
       }
     }
   },
+  beforeRouteLeave(to, from, next) {
+    if ((to.name == 'shopIndex')) {
+      this.ADDCACHE('SearchSource')
+    } else {
+      this.DELCACHE('SearchSource')
+    }
+    next()
+  },
   created() {
     this._getSecLevelCategory()
     this._getMerByCategory()
@@ -105,6 +114,7 @@ export default {
     this.setFixTop()
   },
   methods: {
+    ...mapMutations('common', ['ADDCACHE', 'DELCACHE']),
     ...mapGetters('main', ['getMerchantCategory']),
     changeHandler(cur) {
       this.current = cur
@@ -126,7 +136,7 @@ export default {
       this.selectCategory(item)
     },
     selectCategory(item) {
-      this.selectindex = item.id
+      this.selectindex = item
       this.page = 1
       this.allLoaded = false
       this.merchants = []
@@ -143,9 +153,9 @@ export default {
       const params = {
         page: this.page,
         pageSize: this.pageSize,
-        type: this.selectindex == this.$route.query.categoryId ? 0 : 1,
+        type: this.selectindex.pid == -1 ? 0 : 1,
         orderType: this.orderType,
-        id: this.selectindex
+        id: this.selectindex.id
       }
       api.getMerByCategory(params).then((res) => {
         this.totalPage = Math.ceil(res.data.count / this.pageSize)

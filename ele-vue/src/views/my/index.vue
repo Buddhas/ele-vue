@@ -4,12 +4,12 @@
       <div class="user-info flex align_center">
         <img src="./image/avatar.png" alt="">
         <div class="info">
-          <div>
+          <router-link to="../login/index.html" tag="div">
             <p class="part-1">登录/注册</p>
             <p class="part-2">登录后享受更多特权</p>
-          </div>
+          </router-link>
         </div>
-        <span>></span>
+        <span class="iconfont" style="color:#fff">&#xe60b;</span>
       </div>
     </section>
     <section class="package flex">
@@ -30,29 +30,46 @@
     </section>
     <section>
       <section class="item-part">
-        <Item />
+        <Item text="我的地址" icon="&#xe734;" icon-color="#4AA5F0" link="../address/index.html" />
       </section>
       <section class="item-part">
-        <Item v-for="(item, index) in 2" :key="index" />
+        <Item
+          v-for="(item, index) in itemPartOne"
+          :key="index"
+          :icon="item.icon"
+          :text="item.value"
+          :icon-color="item.iconColor"
+        />
       </section>
       <section class="item-part">
-        <Item v-for="(item, index) in 3" :key="index" />
+        <Item
+          v-for="(item, index) in itemPartTwo"
+          :key="index"
+          :icon="item.icon"
+          :text="item.value"
+          :icon-color="item.iconColor"
+        />
       </section>
     </section>
     <section class="bottom">
       <a href="https://h5.ele.me/service/agreement/#HEAEDER_SHOW=1&initTitle=%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96&key=ruleQue50">隐私政策</a>
     </section>
+    <FootGuide :guide-index="3" />
   </div>
 </template>
 
 <script>
 import Item from './components/item'
+import FootGuide from 'components/footGuide'
 export default {
   components: {
-    Item
+    Item,
+    FootGuide
   },
   data() {
     return {
+      itemPartOne: [{ value: '金币商城', icon: '&#xe620;', iconColor: '#94D94A' }, { value: '分享拿20现金', icon: '&#xe617;', iconColor: '#FD9C7D' }],
+      itemPartTwo: [{ value: '我的客服', icon: '&#xe65a;', iconColor: '#4DA6F0' }, { value: '下载饿了么app', icon: '&#xe639;', iconColor: '#6DC0FF' }, { value: '规则中心', icon: '&#xe60e;', iconColor: '#4DA6F0' }]
     }
   }
 }

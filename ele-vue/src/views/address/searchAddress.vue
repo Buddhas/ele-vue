@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-03-07 10:57:45
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-07 11:37:21
+ * @LastEditTime: 2020-03-08 17:58:55
  -->
 <template>
   <div class="search-wrapper">
@@ -39,6 +39,7 @@ import { AMapService } from '@/common/mixins/AMap'
 // VUEX
 import { mapMutations } from 'vuex'
 export default {
+  name: 'SearchAddress',
   mixins: [AMapService],
   components: {
     Header,

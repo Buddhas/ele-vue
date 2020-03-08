@@ -4,10 +4,10 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-03-07 10:57:45
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-07 20:41:56
+ * @LastEditTime: 2020-03-08 15:13:47
  -->
 <template>
-  <div class="search-wrapper">
+  <div class="main-search-wrapper">
     <Header :title="title" />
     <section class="top">
       <div class="wrapper">
@@ -27,6 +27,7 @@
       />
       <LoadingMore :finally-flag="allLoaded" />
     </section>
+    <FootGuide :guide-index="1" />
   </div>
 </template>
 
@@ -34,6 +35,7 @@
 // 业务组件
 import Header from '@/components/header'
 import ShopList from 'components/shopList'
+import FootGuide from 'components/footGuide'
 // mixins
 import LoadingMoreMixin from '@/common/mixins/loadingMore'
 // api请求
@@ -45,7 +47,8 @@ export default {
   components: {
     Header,
     ShopList,
-    LoadingMore
+    LoadingMore,
+    FootGuide
   },
   data() {
     return {
@@ -93,7 +96,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.search-wrapper {
+.main-search-wrapper {
   .top {
     background-color: #ffffff;
     width: 100%;

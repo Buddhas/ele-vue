@@ -3,8 +3,8 @@
  * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
- * @LastEditors  : 笑佛弥勒
- * @LastEditTime : 2020-02-11 23:37:53
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-08 17:52:27
  -->
 <template>
   <div class="main-wrapper">
@@ -39,6 +39,7 @@ import LoadingMoreMixin from '@/common/mixins/loadingMore'
 // VUEX
 import { mapMutations } from 'vuex'
 export default {
+  name: 'MainIndex',
   mixins: [LoadingMoreMixin],
   components: {
     Head,
