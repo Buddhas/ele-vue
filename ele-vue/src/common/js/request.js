@@ -1,7 +1,9 @@
 import axios from 'axios'
 import env from '@/config/env'
 import Vue from 'vue'
-
+import router from '../../plugins/router'
+import { Toast } from 'cube-ui'
+console.log()
 /**
  * 自定义Axios实例
  */
@@ -10,7 +12,7 @@ const AJAX = axios.create({
   timeout: 30000,
   withCredentials: env.credential
 })
-
+console.log(Vue)
 // 添加请求拦截器
 AJAX.interceptors.request.use(
   function(config) {
@@ -29,8 +31,16 @@ AJAX.interceptors.request.use(
 // 添加响应拦截器
 AJAX.interceptors.response.use(
   function(response) {
-    const status = [10001, 10002, 10003]
-    if (status.includes(response.data.status)) {
+    const loginError = [1003, 1004]
+    console.log(router)
+    if (loginError.includes(response.data.status)) {
+      console.log(Vue.$router)
+    } else if (response.data.status != 200) {
+      Toast.$create({
+        time: 2000,
+        type: 'txt',
+        txt: response.data.message
+      }).show()
     } else {
       return response.data
     }
