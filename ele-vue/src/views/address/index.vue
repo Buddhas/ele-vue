@@ -1,6 +1,6 @@
 <!--
- * @Descripttion: 
- * @version: 
+ * @Descripttion: 我的地址列表
+ * @version: 1.0
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
@@ -8,7 +8,7 @@
  -->
 <template>
   <div class="address-index-wrapper">
-    <Header />
+    <Header :default-jump="false" @customJump="toAddressIndex" />
     <div class="item-wrapper">
       <Item v-for="(item, index) in allAddressList" :key="index" :address="item" @deleteAddress="_getAddressList" />
     </div>
@@ -40,6 +40,9 @@ export default {
   created() {
     this._getAddressList()
     this.ADDCACHE('AddressIndex')
+  },
+  activated() {
+    this._getAddressList()
   },
   methods: {
     ...mapMutations('common', ['ADDCACHE']),

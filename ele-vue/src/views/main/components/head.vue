@@ -4,7 +4,7 @@
       <span class="iconfont">&#xe734;</span>
       <span class="address-info">{{ getShipAddress || '请选择收货地址' }}</span>
     </div>
-    <div class="search-wrapper" @click="search">
+    <div id="searchWrapper" class="search-wrapper" @click="search">
       <div class="search" :class="{ fixed: fixTop }">
         <div class="search-box">搜索饿了么商家、商品名称</div>
       </div>
@@ -36,20 +36,25 @@ export default {
   mounted() {
     this.initData()
   },
+  destroyed() {
+    if (this.needFixTop) {
+      document.removeEventListener('scroll', this.handleCheck1)
+    }
+  },
   methods: {
     toSelectAddress() {
       this.$router.push({ path: '../address/selectAddress.html' })
     },
     initData() {
       if (this.needFixTop) {
-        this.container = document.getElementsByClassName('search-wrapper')[0]
-        document.addEventListener('scroll', this.handleCheck)
+        this.container = document.getElementById('searchWrapper')
+        document.addEventListener('scroll', this.handleCheck1)
       }
     },
     search() {
       this.$router.push({ path: './search.html' })
     },
-    handleCheck() {
+    handleCheck1() {
       this.checkFix(this.container)
     },
     checkFix(container) {

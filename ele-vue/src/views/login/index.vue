@@ -95,10 +95,10 @@ export default {
         }
         api.login(params).then((res) => {
           if (res.status == 200) {
-            if (this.$route.query.redirect_url) {
-              this.$router.push({ path: this.$route.query.redirect_url })
+            if (this.$route.query.redirect) {
+              this.$router.replace({ path: '/vue' + this.$route.query.redirect })
             } else {
-              this.$router.push({ path: '../main/index.html' })
+              this.$router.replace({ path: '../main/index.html' })
             }
           } else {
             this.$createToast({

@@ -55,10 +55,10 @@ export default {
     toGuide(index) {
       switch (index) {
         case 0:
-          this.$router.push('../main/index.html')
+          this.$router.push({ path: '../main/index.html' })
           break
         case 1:
-          this.$router.push('../main/search.html')
+          this.$router.push({ path: '../main/search.html' })
           break
         case 2:
           this.$createDialog({
@@ -67,7 +67,7 @@ export default {
           }).show()
           break
         case 3:
-          this.$router.push('../my/index.html')
+          this.$router.push({ path: '../my/index.html' })
           break
       }
     }

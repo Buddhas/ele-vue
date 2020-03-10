@@ -31,10 +31,12 @@ AJAX.interceptors.request.use(
 // 添加响应拦截器
 AJAX.interceptors.response.use(
   function(response) {
-    const loginError = [1003, 1004]
-    console.log(router)
+    const loginError = [10003, 10004]
     if (loginError.includes(response.data.status)) {
-      console.log(Vue.$router)
+      router.push({
+        path: '../login/index.html',
+        query: { redirect: location.href.split('/vue')[1] }
+      })
     } else if (response.data.status != 200) {
       Toast.$create({
         time: 2000,

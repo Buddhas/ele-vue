@@ -1,5 +1,5 @@
 <template>
-  <section id="storeListHead" class="header">
+  <section id="storeListHead" class="store-header">
     <div :style="{ top: offsetTop / 37.5 + 'rem' }" :class="{ fixed: fixTop }">
       <div class="filter-header">
         <a class="filter-nav" :class="[showSortFlag ? 'c3190e8' : '']" @click="showSort">综合排序</a>
@@ -101,12 +101,7 @@ export default {
     return {
       showSortFlag: false,
       currentIndex: 0,
-      sortItems: [
-        '综合排序',
-        '好评优先',
-        '起送价最低',
-        '配送最快'
-      ],
+      sortItems: ['综合排序', '好评优先', '起送价最低', '配送最快'],
       // 商家服务
       shopService: [
         {
@@ -197,15 +192,25 @@ export default {
       // 选中优惠活动
       actIndex: -1,
       // 选中人均服务
-      perIndex: -1, 
+      perIndex: -1,
       showScreeing: false,
       container: null,
       fixTop: false,
-      scrollTop: 0
+      scrollTop: 0,
+      distance: 0,
+      tempDistance: 0
     }
   },
   mounted() {
     this.initData()
+  },
+  activated() {
+    this.initData()
+  },
+  deactivated() {
+    if (this.needFixTop) {
+      document.removeEventListener('scroll', this.handleCheck)
+    }
   },
   destroyed() {
     if (this.needFixTop) {
@@ -231,6 +236,9 @@ export default {
         this.container = document.getElementById('storeListHead')
         this.scrollTop = this.container.getBoundingClientRect().y
         document.addEventListener('scroll', this.handleCheck)
+        this.$nextTick(() => {
+          window.scrollBy(0, -this.tempDistance)
+        })
       }
     },
     handleCheck() {
@@ -238,8 +246,9 @@ export default {
     },
     checkFix(container) {
       const { top, y } = container.getBoundingClientRect()
-      const distance = top || y || 0
-      if (distance > this.offsetTop) {
+      this.distance = top || y || 0
+      this.tempDistance = this.distance
+      if (this.distance >= this.offsetTop) {
         this.fixTop = false
       } else {
         this.fixTop = true
@@ -288,32 +297,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.store-header {
   position: relative;
   height: 40px;
-}
-.filter-header {
-  display: flex;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 4;
-  height: 100%;
-  line-height: 40px;
-  background-color: #fff;
-  .filter-nav {
-    flex: 1;
-    text-align: center;
-    color: #666;
-    position: relative;
-    font-size: 0.373333rem;
-    z-index: 101;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .filter-header {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 4;
+    height: 100%;
+    line-height: 40px;
+    background-color: #fff;
+    .filter-nav {
+      flex: 1;
+      text-align: center;
+      color: #666;
+      position: relative;
+      font-size: 0.373333rem;
+      z-index: 101;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
+
 .sort {
   width: 100%;
   background-color: #ffffff;
@@ -396,7 +406,7 @@ export default {
       flex: 1;
       color: #fff;
       background-color: #00d762;
-      border: .013333rem solid #00d762;
+      border: 0.013333rem solid #00d762;
       text-align: center;
     }
   }
