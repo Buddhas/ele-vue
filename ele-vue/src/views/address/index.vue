@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-20 20:41:57
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-08 17:51:42
+ * @LastEditTime: 2020-03-11 22:18:24
  -->
 <template>
   <div class="address-index-wrapper">
@@ -46,6 +46,9 @@ export default {
   },
   methods: {
     ...mapMutations('common', ['ADDCACHE']),
+    toAddressIndex() {
+      this.$router.push({ path: '../my/index.html' })
+    },
     _getAddressList() {
       api.getAddressList().then((res) => {
         this.allAddressList = res.data
