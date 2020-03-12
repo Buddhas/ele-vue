@@ -24,7 +24,12 @@ export default {
       type: String,
       default: '没有更多了~'
     }
-  }
+  },
+  mounted() {
+    setTimeout(() => {
+      console.log('this.finallyFlag', this.finallyFlag)
+    }, 2000);
+  },
 }
 </script>
 

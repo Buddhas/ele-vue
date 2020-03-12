@@ -163,6 +163,7 @@ export default {
           this.allLoaded = true
         }
         this.merchants.push(...res.data.rows)
+        this.requireFinallyFlag = true
       })
     },
     // 获取所有商铺分类
