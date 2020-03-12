@@ -11,9 +11,9 @@ export default {
     return {
       page: 1,
       pageSize: 20,
-      requireFinallyFlag: true,
+      requireFinallyFlag: true, // 当次请求是否完成
       totalPage: 1,
-      allLoaded: false
+      allLoaded: false // 数据是否全部加载完成
     }
   },
   mounted() {

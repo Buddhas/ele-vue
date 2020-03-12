@@ -8,6 +8,7 @@
  -->
 <template>
   <div class="shop-detail">
+    <i class="go-back-icon iconfont" @click="goBack">&#xe670;</i>
     <Header :merchant-detail="merchantDetail" />
     <div class="tab-wrapper">
       <tab :tabs="tabs" />
@@ -62,6 +63,9 @@ export default {
   },
   methods: {
     ...mapMutations('shopDetail', ['MERCHANTDETAIL']),
+    goBack() {
+      this.$router.go(-1)
+    },
     // 获取店铺信息
     _getMerchantsById() {
       const params = {
@@ -81,6 +85,16 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #fff;
+  position: relative;
+  .go-back-icon {
+    position: absolute;
+    z-index: 999;
+    top: 5px;
+    left: 0;
+    padding: 5px;
+    font-size: 14px;
+    color:#fff;
+  }
   .tab-wrapper {
     position: fixed;
     top: 136px;

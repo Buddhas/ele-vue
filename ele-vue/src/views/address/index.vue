@@ -46,6 +46,9 @@ export default {
   },
   methods: {
     ...mapMutations('common', ['ADDCACHE']),
+    toAddressIndex() {
+      this.$router.push({ path: '../my/index.html' })
+    },
     _getAddressList() {
       api.getAddressList().then((res) => {
         this.allAddressList = res.data

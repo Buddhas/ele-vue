@@ -25,7 +25,7 @@
         :key="index"
         :merchant="item"
       />
-      <LoadingMore :finally-flag="allLoaded" />
+      <LoadingMore :all-loaded="allLoaded" />
     </section>
     <FootGuide :guide-index="1" />
   </div>
@@ -78,6 +78,7 @@ export default {
           this.allLoaded = true
         }
         this.merchants.push(...res.data.rows)
+        this.requireFinallyFlag = true
       })
     },
     // 加载更多
@@ -97,6 +98,7 @@ export default {
 
 <style lang="scss" scoped>
 .main-search-wrapper {
+  padding-bottom: 50px;
   .top {
     background-color: #ffffff;
     width: 100%;

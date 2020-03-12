@@ -8,7 +8,7 @@
  -->
 <template>
   <div class="loading-more">
-    <cube-loading v-if="!finallyFlag" :size="24" />
+    <cube-loading v-if="!allLoaded" :size="24" />
     <div v-else class="text">{{ text }}</div>
   </div>
 </template>
@@ -16,7 +16,7 @@
 <script>
 export default {
   props: {
-    finallyFlag: {
+    allLoaded: {
       type: Boolean,
       default: false
     },
@@ -24,12 +24,7 @@ export default {
       type: String,
       default: '没有更多了~'
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      console.log('this.finallyFlag', this.finallyFlag)
-    }, 2000);
-  },
+  }
 }
 </script>
 
