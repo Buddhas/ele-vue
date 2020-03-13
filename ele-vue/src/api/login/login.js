@@ -18,7 +18,12 @@ const login = (params) => {
   return post('/user/login', params)
 }
 
+// 检验用户是否登录
+const isLogin = (params) => {
+  return get('/user/isLogin', params)
+}
 export default {
   sendEmail,
-  login
+  login,
+  isLogin
 }

@@ -8,7 +8,8 @@
  */
 import { common as baseMutation } from '../mutation-types'
 const state = {
-  cache: ['MainIndex'] // keepAlive缓存组件
+  cache: ['MainIndex'], // keepAlive缓存组件
+  userInfo: {}
 }
 
 const actions = {}
@@ -16,6 +17,9 @@ const actions = {}
 const getters = {
   getcache: (state) => {
     return state.cache
+  },
+  getUserInfo: (state) => {
+    return state.userInfo
   }
 }
 
@@ -23,13 +27,17 @@ const mutations = {
   // 增加缓存
   [baseMutation.ADDCACHE](state, data) {
     !state.cache.includes(data) && state.cache.push(data)
-    console.log('ADDCACHE', state.cache)
+    console.log(state.cache, '增加缓存')
   },
   // 去除缓存
   [baseMutation.DELCACHE](state, data) {
     const index = state.cache.indexOf(data)
     index != -1 && state.cache.splice(index, 1)
-    console.log('DELCACHE', state.cache)
+    console.log(state.cache, '去除缓存')
+  },
+  // 设置用户信息
+  [baseMutation.SETUSERINFO](state, data) {
+    state.userInfo = data
   }
 }
 export default {

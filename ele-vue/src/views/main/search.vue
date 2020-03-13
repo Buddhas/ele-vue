@@ -42,7 +42,10 @@ import LoadingMoreMixin from '@/common/mixins/loadingMore'
 import { main as api } from '@/api/index'
 // 公共组件
 import LoadingMore from '@/components/loadingMore'
+// VUEX
+import { mapMutations } from 'vuex'
 export default {
+  name: 'SearchShop',
   mixins: [LoadingMoreMixin],
   components: {
     Header,
@@ -57,10 +60,19 @@ export default {
       merchants: []
     }
   },
+  beforeRouteLeave(to, from, next) {
+    if (to.name == 'shopIndex') {
+      this.ADDCACHE('SearchShop')
+    } else {
+      this.DELCACHE('SearchShop')
+    }
+    next()
+  },
   created() {
     this.allLoaded = true
   },
   methods: {
+    ...mapMutations('common', ['ADDCACHE', 'DELCACHE']),
     selectSearch(item) {
       this.SEARCHADDRESS(item.name)
       this.$router.go(-1)

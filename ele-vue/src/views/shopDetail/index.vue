@@ -29,6 +29,7 @@ import { shopDetail as api } from '@/api/index'
 import { mapMutations } from 'vuex'
 
 export default {
+  name: 'ShopDetail',
   data() {
     return {
       merchantId: this.$route.query.merchantId,

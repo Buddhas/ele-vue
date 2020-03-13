@@ -11,7 +11,8 @@
 // 地址
 export const common = Object.freeze({
   ADDCACHE: 'ADDCACHE',
-  DELCACHE: 'DELCACHE'
+  DELCACHE: 'DELCACHE',
+  SETUSERINFO: 'SETUSERINFO'
 })
 
 // 商铺详情
