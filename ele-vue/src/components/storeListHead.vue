@@ -237,7 +237,7 @@ export default {
         this.scrollTop = this.container.getBoundingClientRect().y
         document.addEventListener('scroll', this.handleCheck)
         this.$nextTick(() => {
-          window.scrollBy(0, -this.tempDistance)
+          window.scrollBy(0, this.tempDistance)
         })
       }
     },
@@ -247,7 +247,7 @@ export default {
     checkFix(container) {
       const { top, y } = container.getBoundingClientRect()
       this.distance = top || y || 0
-      this.tempDistance = this.distance
+      this.tempDistance = document.documentElement.scrollTop
       if (this.distance >= this.offsetTop) {
         this.fixTop = false
       } else {

@@ -34,7 +34,7 @@ AJAX.interceptors.response.use(
     const loginError = [10003, 10004]
     if (loginError.includes(response.data.status)) {
       router.push({
-        path: '../login/index.html',
+        path: '/vue/login/index.html',
         query: { redirect: location.href.split('/vue')[1] }
       })
     } else if (response.data.status != 200) {

@@ -126,6 +126,7 @@ export default {
     Header
   },
   beforeRouteLeave(to, from, next) {
+    console.log('--------------beforeRouteLeave----------')
     if (to.name == 'searchAddress') {
       this.ADDCACHE('AddAddress')
     } else {
@@ -164,6 +165,11 @@ export default {
       this._getAddressById()
     }
   },
+  // activated() {
+  //   if (this.isEdit) {
+  //     this._getAddressById()
+  //   }
+  // },
   methods: {
     ...mapMutations('common', ['ADDCACHE', 'DELCACHE']),
     toAddressIndex() {

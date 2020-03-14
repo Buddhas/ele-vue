@@ -19,7 +19,7 @@
     <StoreListHead ref="storeList" :need-fix-top="false" offset-top="40" @selectOrderType="selectOrderType" />
     <div class="shop-list">
       <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
-      <LoadingMore :finally-flag="allLoaded" />
+      <LoadingMore :all-loaded="allLoaded" />
     </div>
     <section v-if="menuFlag" class="filter-category">
       <div class="filter-top flex justify_between">
@@ -44,7 +44,7 @@
                 v-for="child in category.child"
                 :key="child.id"
                 class="item flex justify_between"
-                @touchstart="selectFilterItem(category, child)"
+                @click="selectFilterItem(category, child)"
               >
                 <div class="name flex align_center">
                   <img
@@ -92,7 +92,7 @@ export default {
       menuFlag: false,
       orderType: 0,
       scrollOptions: {
-        click: false,
+        click: true,
         directionLockThreshold: 0
       }
     }
@@ -163,6 +163,7 @@ export default {
           this.allLoaded = true
         }
         this.merchants.push(...res.data.rows)
+        this.requireFinallyFlag = true
       })
     },
     // 获取所有商铺分类

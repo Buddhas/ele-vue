@@ -15,7 +15,7 @@
       <StoreListHead offset-top="66" @selectOrderType="selectOrderType" />
       <div class="shop-list">
         <ShopList v-for="(item, index) in merchants" :key="index" :merchant="item" />
-        <LoadingMore :finally-flag="allLoaded" />
+        <LoadingMore :all-loaded="allLoaded" />
       </div>
     </div>
     <FootGuide />
@@ -95,6 +95,7 @@ export default {
           this.allLoaded = true
         }
         this.merchants.push(...res.data.rows)
+        this.requireFinallyFlag = true
       })
     },
     // 加载更多

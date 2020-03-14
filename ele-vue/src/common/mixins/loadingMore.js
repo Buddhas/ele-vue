@@ -11,9 +11,9 @@ export default {
     return {
       page: 1,
       pageSize: 20,
-      finallyFlag: true,
+      requireFinallyFlag: true, // 当次请求是否完成
       totalPage: 1,
-      allLoaded: false
+      allLoaded: false // 数据是否全部加载完成
     }
   },
   mounted() {
@@ -30,11 +30,12 @@ export default {
       const totalHeight = parseFloat(windowHeight + scrollTop, 10)
       // 考虑不同浏览器的交互，可能顶部条隐藏之类的，导致页面高度变高
       const browserOffset = 60
-      if (bodyHeight <= totalHeight + browserOffset && this.page <= this.totalPage) {
+      if (bodyHeight < totalHeight + browserOffset && this.page <= this.totalPage && this.requireFinallyFlag) {
         this.page++
         if (this.page > this.totalPage) {
           this.allLoaded = true
         } else {
+          this.requireFinallyFlag = false
           this.loadingMore()
         }
       }
