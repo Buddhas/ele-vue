@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-15 18:44:15
+ */
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from '../router/index'
@@ -7,7 +15,7 @@ import { login as api } from '@/api/index'
 Vue.use(Router)
 
 const base = `${process.env.BASE_URL}` // 动态获取二级目录
-
+console.log(base, '___________')
 const router = new Router({
   mode: 'history',
   base: base,
