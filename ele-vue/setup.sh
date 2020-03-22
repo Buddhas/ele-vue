@@ -11,7 +11,7 @@ docker build . -t ele/index/vue:$image_version;
 # 查看镜像列表
 docker images;
 # 基于ele/index/vue 镜像 构建一个容器 ele_index_vue
-docker run -p 9527:8080 -d --name ele_index_vue ele/index/vue:$image_version;
+docker run -p 9528:8080 -d --name ele_index_vue ele/index/vue:$image_version;
 # 查看日志
 docker logs ele_index_vue;
 #删除build过程中产生的镜像    #docker image prune -a -f
