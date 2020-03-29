@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-08 16:40:10
+ * @LastEditTime: 2020-03-29 19:04:10
  -->
 <template>
   <div class="scroll-food-category">
@@ -15,7 +15,7 @@
       >
         <section class="food-category flex wrap">
           <div v-for="(childItem, childIndex) in item" :key="childIndex" class="food-category-item" @click="clickHandler(childItem)">
-            <img src="https://cube.elemecdn.com/7/d8/a867c870b22bc74c87c348b75528djpeg.jpeg?x-oss-process=image/format,webp/resize,w_90,h_90,m_fixed">
+            <img :src="IMAGESDOMAIN + childItem.image">
             <span class="title">{{ childItem.name }}</span>
           </div>
         </section>

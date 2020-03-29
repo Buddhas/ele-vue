@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-22 16:22:19
+ * @LastEditTime: 2020-03-29 15:26:37
  */
 // vue.config.js
 const path = require('path')
@@ -31,37 +31,7 @@ module.exports = {
     https: false, // 使用https提供服务
     // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
     proxy: {
-      '/admin/*': {
-        target: 'http://127.0.0.1:7001',
-        changeOrigin: true,
-        secure: false
-      },
-      '/merchants/*': {
-        target: 'http://127.0.0.1:7001',
-        changeOrigin: true,
-        secure: false
-      },
-      '/food/*': {
-        target: 'http://127.0.0.1:7001',
-        changeOrigin: true,
-        secure: false
-      },
-      '/mainIndex/*': {
-        target: 'http://127.0.0.1:7001',
-        changeOrigin: true,
-        secure: false
-      },
-      '/merchantCategory/*': {
-        target: 'http://127.0.0.1:7001',
-        changeOrigin: true,
-        secure: false
-      },
-      '/userAddress/*': {
-        target: 'http://127.0.0.1:7001',
-        changeOrigin: true,
-        secure: false
-      },
-      '/user/*': {
+      '/api/*': {
         target: 'http://127.0.0.1:7001',
         changeOrigin: true,
         secure: false
@@ -73,6 +43,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src'))
       .set('assets', resolve('src/assets'))
+      .set('config', resolve('src/config'))
       .set('components', resolve('src/components'))
   },
 

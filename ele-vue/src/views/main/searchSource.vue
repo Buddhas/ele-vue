@@ -48,7 +48,7 @@
               >
                 <div class="name flex align_center">
                   <img
-                    src="https://cube.elemecdn.com/7/d8/a867c870b22bc74c87c348b75528djpeg.jpeg?x-oss-process=image/format,webp/resize,w_90,h_90,m_fixed"
+                    :src="IMAGESDOMAIN + child.image"
                   />
                   <span>{{ child.name }}</span>
                 </div>

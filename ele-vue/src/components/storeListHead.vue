@@ -36,7 +36,8 @@
                 class="test"
               >
                 <span class="item">
-                  <i class="cubeic-alert"></i>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <i class="iconfont" :style="{ color: item.color }" v-html="item.icon"></i>
                   {{ item.text }}
                 </span>
               </cube-checker-item>
@@ -52,7 +53,9 @@
                 class="item"
                 :class="[actIndex == index ? 'item_active' : '']"
                 @click="actIndex = index"
-              >{{ item.value }}</li>
+              >
+                {{ item.value }}
+              </li>
             </ul>
           </div>
           <!-- 人均消费 -->
@@ -65,7 +68,9 @@
                 class="item"
                 :class="[perIndex == index ? 'item_active' : '']"
                 @click="perIndex = index"
-              >{{ item.value }}</li>
+              >
+                {{ item.value }}
+              </li>
             </ul>
           </div>
         </div>
@@ -106,19 +111,45 @@ export default {
       shopService: [
         {
           value: 1,
-          text: '蜂鸟专送'
+          text: '蜂鸟专送',
+          icon: '&#xe601;',
+          color: '#02ABE9'
         },
         {
           value: 2,
-          text: '蜂鸟专送'
+          text: '到点自取',
+          icon: '&#xe652;',
+          color: '#F89577'
         },
         {
           value: 3,
-          text: '蜂鸟专送'
+          text: '品牌商家',
+          icon: '&#xe62d;',
+          color: '#FE9736'
         },
         {
           value: 4,
-          text: '蜂鸟专送'
+          text: '新店',
+          icon: '&#xe60f;',
+          color: '#F6AD2A'
+        },
+        {
+          value: 5,
+          text: '接受预约',
+          icon: '&#xe60f;',
+          color: '#9C8EEF'
+        },
+        {
+          value: 6,
+          text: '食无忧',
+          icon: '&#xe600;',
+          color: '#FE869F'
+        },
+        {
+          value: 7,
+          text: '开发票',
+          icon: '&#xe6cb;',
+          color: '#96CB59'
         }
       ],
       // 优惠活动
@@ -391,7 +422,7 @@ export default {
     color: #3190e8;
   }
   .service {
-    padding: 0 15px;
+    padding: 10px 15px;
   }
   .btn {
     line-height: 1.146667rem;

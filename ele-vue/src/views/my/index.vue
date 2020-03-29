@@ -4,10 +4,10 @@
       <div class="user-info flex align_center">
         <img src="./image/avatar.png" alt="">
         <div class="info">
-          <router-link to="../login/index.html" tag="div">
-            <p class="part-1">登录/注册</p>
-            <p class="part-2">登录后享受更多特权</p>
-          </router-link>
+          <div>
+            <p class="part-1 elli">{{ getUserInfo.user_name }}</p>
+            <p class="part-2">开通会员享受更多特权</p>
+          </div>
         </div>
         <span class="iconfont" style="color:#fff">&#xe60b;</span>
       </div>
@@ -61,6 +61,7 @@
 <script>
 import Item from './components/item'
 import FootGuide from 'components/footGuide'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Item,
@@ -71,6 +72,9 @@ export default {
       itemPartOne: [{ value: '金币商城', icon: '&#xe620;', iconColor: '#94D94A' }, { value: '分享拿20现金', icon: '&#xe617;', iconColor: '#FD9C7D' }],
       itemPartTwo: [{ value: '我的客服', icon: '&#xe65a;', iconColor: '#4DA6F0' }, { value: '下载饿了么app', icon: '&#xe639;', iconColor: '#6DC0FF' }, { value: '规则中心', icon: '&#xe60e;', iconColor: '#4DA6F0' }]
     }
+  },
+  computed: {
+    ...mapGetters('common', ['getUserInfo'])
   }
 }
 </script>
@@ -92,6 +96,7 @@ export default {
         flex-grow: 1;
         margin-left: 20px;
         .part-1 {
+          max-width: 180px;
           font-size: 18px;
           font-weight: bold;
           color: #fff;

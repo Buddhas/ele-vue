@@ -4,7 +4,7 @@
       <cube-scroll ref="scroll">
         <div class="food-content">
           <div class="image-header">
-            <img :src="'http://img4.imgtn.bdimg.com/it/u=1581577444,144697650&fm=26&gp=0.jpg'" />
+            <img :src="IMAGESDOMAIN + food.image" />
             <div class="back" @click="hide">
               <i class="icon-arrow_lift iconfont">&#xe670;</i>
             </div>
@@ -165,7 +165,7 @@ export default {
   left: 0;
   top: 0;
   bottom: 48px;
-  z-index: 30;
+  z-index: 999;
   width: 100%;
   background: #fff;
   &.move-enter-active,

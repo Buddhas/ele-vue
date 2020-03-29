@@ -58,7 +58,8 @@ import { AMapService } from '@/common/mixins/AMap'
 // VUEX
 import { mapMutations } from 'vuex'
 // api请求
-import { address as api } from '@/api/index'
+import { address as api, login as loginApi } from '@/api/index'
+
 export default {
   mixins: [AMapService],
   components: {
@@ -74,7 +75,7 @@ export default {
   },
   computed: {
     showMyAddressFlag() {
-      return this.keyword.length > 0 ? false : true
+      return !(this.keyword.length > 0)
     }
   },
   created() {
@@ -87,8 +88,12 @@ export default {
       this.$router.go(-1)
     },
     _getAddressList() {
-      api.getAddressList().then((res) => {
-        this.allAddressList = res.data
+      loginApi.isLogin().then((res) => {
+        if (res.data) {
+          api.getAddressList().then((res) => {
+            this.allAddressList = res.data
+          })
+        }
       })
     },
     toSelectCity() {

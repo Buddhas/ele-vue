@@ -2,7 +2,7 @@
   <div class="header">
     <div class="contain-wrapper flex">
       <div class="avatar">
-        <img width="64" height="64" :src="seller.image" />
+        <img width="64" height="64" :src="IMAGESDOMAIN + merchantDetail.shop_avatar" />
       </div>
       <div class="content flex flex_column justify_between elli">
         <div class="name">{{ merchantDetail.name }}</div>
@@ -21,7 +21,7 @@
     </div>
     <!-- 阴影部分 -->
     <div class="background">
-      <img :src="seller.image" width="100%" height="100%" />
+      <img :src="IMAGESDOMAIN + merchantDetail.shop_avatar" width="100%" height="100%" />
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <section class="shop-item" @click="toShopDetail">
     <div class="flex">
-      <div class="left backgroundimg"></div>
+      <div class="left backgroundimg" :style="{backgroundImage:'url('+ IMAGESDOMAIN + merchant.shop_avatar +')'}"></div>
       <div class="right flex justify_between">
         <div class="flex index-line1 justify_between align_center">
           <div class="flex">
@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="flex index-line2">
-          <div class="start">☆☆☆☆☆</div>
+          <Star :size="24" :score="merchant.score" />
           <span class="ml5">{{ merchant.score }}</span>
           <span class="ml5">月售{{ merchant.mon_sale }}单</span>
         </div>
@@ -52,7 +52,11 @@
 </template>
 
 <script>
+import Star from '@/views/shopDetail/components/star'
 export default {
+  components: {
+    Star
+  },
   props: {
     merchant: {
       type: Object,
@@ -84,7 +88,6 @@ export default {
   width: 64px;
   height: 64px;
   margin-right: 10px;
-  background-image: url('https://cube.elemecdn.com/2/41/7769b4377c438f3db851885b09d12jpeg.jpeg?x-oss-process=image/format,webp/resize,w_130,h_130,m_fixed');
 }
 .right {
   flex: 1;

@@ -1,9 +1,15 @@
+/*
+ * @Descripttion: axions实例
+ * @version: 1.0
+ * @Author: 笑佛弥勒
+ * @Date: 2020-01-05 15:47:10
+ * @LastEditors: 笑佛弥勒
+ * @LastEditTime: 2020-03-29 15:05:04
+ */
 import axios from 'axios'
 import env from '@/config/env'
-import Vue from 'vue'
 import router from '../../plugins/router'
 import { Toast } from 'cube-ui'
-console.log()
 /**
  * 自定义Axios实例
  */
@@ -12,7 +18,6 @@ const AJAX = axios.create({
   timeout: 30000,
   withCredentials: env.credential
 })
-console.log(Vue)
 // 添加请求拦截器
 AJAX.interceptors.request.use(
   function(config) {

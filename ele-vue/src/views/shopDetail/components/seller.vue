@@ -61,7 +61,7 @@
               :key="index"
               class="pic-item"
             >
-              <img :src="seller.shop_environment ? seller.shop_environment : 'http://img4.imgtn.bdimg.com/it/u=1581577444,144697650&fm=26&gp=0.jpg'" width="120" height="90" />
+              <img :src="IMAGESDOMAIN + seller.shop_environment" width="120" height="90" />
             </li>
           </ul>
         </cube-scroll>

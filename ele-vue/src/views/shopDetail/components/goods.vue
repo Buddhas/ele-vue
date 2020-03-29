@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2020-01-05 15:47:10
- * @LastEditTime : 2020-02-06 17:40:43
- * @LastEditors  : 笑佛弥勒
+ * @LastEditTime: 2020-03-29 16:57:01
+ * @LastEditors: 笑佛弥勒
  * @Description: In User Settings Edit
  * @FilePath: \ele-vue\ele-vue\src\views\shopDetail\components\goods.vue
  -->
@@ -51,7 +51,7 @@
               @click="selectFood(food)"
             >
               <div class="icon">
-                <img width="57" height="57" :src="food.icon" />
+                <img width="57" height="57" :src="IMAGESDOMAIN + food.image" />
               </div>
               <div class="content">
                 <h2 class="name">{{ food.name }}</h2>
@@ -99,8 +99,6 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Goods',
   components: {
-    Bubble,
-    SupportIco,
     ShopCart,
     CartControl
   },
@@ -249,9 +247,6 @@ export default {
     .icon {
       flex: 0 0 57px;
       margin-right: 10px;
-      img {
-        height: auto;
-      }
     }
     .content {
       flex: 1;
@@ -311,6 +306,9 @@ export default {
   width: 80px;
   white-space: normal;
   overflow: hidden;
+}
+.goods-wrapper /deep/ .cube-scroll-wrapper {
+  width: 100%;
 }
 .goods-wrapper .scroll-nav-wrapper /deep/ .cube-scroll-nav-bar-item {
   padding: 0 10px;

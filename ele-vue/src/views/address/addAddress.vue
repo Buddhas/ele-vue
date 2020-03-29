@@ -158,18 +158,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('address', ['getSearchAddress'])
+    ...mapGetters('address', ['getUserInfo'])
   },
   created() {
     if (this.isEdit) {
       this._getAddressById()
     }
   },
-  // activated() {
-  //   if (this.isEdit) {
-  //     this._getAddressById()
-  //   }
-  // },
   methods: {
     ...mapMutations('common', ['ADDCACHE', 'DELCACHE']),
     toAddressIndex() {
