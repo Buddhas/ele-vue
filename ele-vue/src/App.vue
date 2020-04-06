@@ -4,7 +4,7 @@
  * @Author: 笑佛弥勒
  * @Date: 2020-01-05 15:47:10
  * @LastEditors: 笑佛弥勒
- * @LastEditTime: 2020-03-08 23:50:17
+ * @LastEditTime: 2020-04-06 10:51:31
  -->
 <template>
   <div id="app">
@@ -20,6 +20,9 @@ export default {
   name: 'App',
   computed: {
     ...mapGetters('common', ['getcache'])
+  },
+  mounted() {
+    document.body.style.fontSize = 12 + 'px'
   }
 }
 </script>
