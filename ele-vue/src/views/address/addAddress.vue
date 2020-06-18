@@ -158,7 +158,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('address', ['getUserInfo'])
+    ...mapGetters('address', ['getUserInfo', 'getSearchAddress'])
   },
   created() {
     if (this.isEdit) {
