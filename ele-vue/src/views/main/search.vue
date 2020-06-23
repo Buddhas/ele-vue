@@ -79,6 +79,7 @@ export default {
     },
     // 获取商铺
     _getMerchantsByKeyword() {
+      
       const params = {
         page: this.page,
         pageSize: this.pageSize,
@@ -100,6 +101,12 @@ export default {
   },
   watch: {
     keyword(val) {
+      if (this.keyword.trim() == '') {
+        this.page = 1
+        this.pageSize = 1
+        this.allLoaded = true
+        return
+      }
       this.allLoaded = false
       this.merchants = []
       this._getMerchantsByKeyword()

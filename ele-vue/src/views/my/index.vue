@@ -2,7 +2,7 @@
   <div class="my-wrapper">
     <section class="header">
       <div class="user-info flex align_center">
-        <img src="./image/avatar.png" alt="">
+        <img src="./image/avatar.png" alt />
         <div class="info">
           <div>
             <p class="part-1 elli">{{ getUserInfo.user_name }}</p>
@@ -30,13 +30,20 @@
     </section>
     <section>
       <section class="item-part">
-        <Item text="我的地址" icon="&#xe734;" icon-color="#4AA5F0" link="../address/index.html" />
+        <Item
+          :used-flag="true"
+          text="我的地址"
+          icon="&#xe734;"
+          icon-color="#4AA5F0"
+          link="../address/index.html"
+        />
       </section>
       <section class="item-part">
         <Item
           v-for="(item, index) in itemPartOne"
           :key="index"
           :icon="item.icon"
+          :used-flag="item.usedFlag"
           :text="item.value"
           :icon-color="item.iconColor"
         />
@@ -46,13 +53,16 @@
           v-for="(item, index) in itemPartTwo"
           :key="index"
           :icon="item.icon"
+          :used-flag="item.usedFlag"
           :text="item.value"
           :icon-color="item.iconColor"
         />
       </section>
     </section>
     <section class="bottom">
-      <a href="https://h5.ele.me/service/agreement/#HEAEDER_SHOW=1&initTitle=%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96&key=ruleQue50">隐私政策</a>
+      <a
+        href="https://h5.ele.me/service/agreement/#HEAEDER_SHOW=1&initTitle=%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96&key=ruleQue50"
+      >隐私政策</a>
     </section>
     <FootGuide :guide-index="3" />
   </div>
@@ -69,8 +79,40 @@ export default {
   },
   data() {
     return {
-      itemPartOne: [{ value: '金币商城', icon: '&#xe620;', iconColor: '#94D94A' }, { value: '分享拿20现金', icon: '&#xe617;', iconColor: '#FD9C7D' }],
-      itemPartTwo: [{ value: '我的客服', icon: '&#xe65a;', iconColor: '#4DA6F0' }, { value: '下载饿了么app', icon: '&#xe639;', iconColor: '#6DC0FF' }, { value: '规则中心', icon: '&#xe60e;', iconColor: '#4DA6F0' }]
+      itemPartOne: [
+        {
+          value: '金币商城',
+          icon: '&#xe620;',
+          iconColor: '#94D94A',
+          usedFlag: false
+        },
+        {
+          value: '分享拿20现金',
+          icon: '&#xe617;',
+          iconColor: '#FD9C7D',
+          usedFlag: false
+        }
+      ],
+      itemPartTwo: [
+        {
+          value: '我的客服',
+          icon: '&#xe65a;',
+          iconColor: '#4DA6F0',
+          usedFlag: false
+        },
+        {
+          value: '下载饿了么app',
+          icon: '&#xe639;',
+          iconColor: '#6DC0FF',
+          usedFlag: false
+        },
+        {
+          value: '规则中心',
+          icon: '&#xe60e;',
+          iconColor: '#4DA6F0',
+          usedFlag: false
+        }
+      ]
     }
   },
   computed: {
@@ -80,66 +122,66 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .my-wrapper {
-    width: 100%;
-    min-height: 100%;
-    background-color: #F5F5F5;
-    .header {
-      padding: 25px 15px;
-      background-image: linear-gradient(90deg,#0af,#0085ff);
-      img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-      }
-      .info {
-        flex-grow: 1;
-        margin-left: 20px;
-        .part-1 {
-          max-width: 180px;
-          font-size: 18px;
-          font-weight: bold;
-          color: #fff;
-        }
-        .part-2 {
-          margin-top: 10px;
-          font-size: 12px;
-          color: #fff;
-        }
-      }
+.my-wrapper {
+  width: 100%;
+  min-height: 100%;
+  background-color: #f5f5f5;
+  .header {
+    padding: 25px 15px;
+    background-image: linear-gradient(90deg, #0af, #0085ff);
+    img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
     }
-    .package {
-      width: 100%;
-      height: 83px;
-      background-color: #fff;
-      align-items: center;
+    .info {
+      flex-grow: 1;
+      margin-left: 20px;
       .part-1 {
-        flex: 1;
-        text-align: center;
-        height: 100%;
-        color: rgb(255, 95, 62);
-        border-right: 1px solid #f5f5f5;
-        font-size: 12px;
+        max-width: 180px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
       }
       .part-2 {
-        flex: 1;
-        height: 100%;
-        text-align: center;
-        color: #666;
+        margin-top: 10px;
         font-size: 12px;
-      }
-    }
-    .item-part {
-      margin-top: 10px;
-    }
-    .bottom {
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-      padding: 20px 0px;
-      a {
-        color: #4da6f0;
+        color: #fff;
       }
     }
   }
+  .package {
+    width: 100%;
+    height: 83px;
+    background-color: #fff;
+    align-items: center;
+    .part-1 {
+      flex: 1;
+      text-align: center;
+      height: 100%;
+      color: rgb(255, 95, 62);
+      border-right: 1px solid #f5f5f5;
+      font-size: 12px;
+    }
+    .part-2 {
+      flex: 1;
+      height: 100%;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+    }
+  }
+  .item-part {
+    margin-top: 10px;
+  }
+  .bottom {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding: 20px 0px;
+    a {
+      color: #4da6f0;
+    }
+  }
+}
 </style>

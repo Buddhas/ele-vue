@@ -7,7 +7,7 @@
  * @LastEditTime: 2020-03-08 16:11:11
  -->
 <template>
-  <div class="item-wrapper flex justify_between" @click="jump">
+  <div class="item-wrapper flex justify_between" :class="[usedFlag ? '' : 'no-used']" @click="jump">
     <div class="left">
       <span class="iconfont" :style="{color:iconColor}" v-html="icon"></span>
       <span style="margin-left:5px">{{ text }}</span>
@@ -36,12 +36,21 @@ export default {
     link: {
       type: String,
       default: ''
+    },
+    usedFlag: {
+      type: Boolean,
+      default: true
     }
   },
   methods: {
     jump() {
       if (this.link) {
         this.$router.push({ path: this.link })
+      } else {
+        this.$createDialog({
+          title: '温馨提示',
+          content: '正在开发中...'
+        }).show()
       }
     }
   }
@@ -57,6 +66,9 @@ export default {
     border-bottom: 1px solid #f5f5f5;
     font-size: 18px;
     color: #333;
+    &.no-used {
+      background-color: #eee;
+    }
     .right {
       color: #333;
       font-size: 12px;
