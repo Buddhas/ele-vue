@@ -24,8 +24,8 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-service": "^3.2.0",
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-service": "^5.0.8",
     "node-sass": "^4.9.0",
     "postcss-px2rem": "^0.3.0",
     "sass-loader": "^7.0.1",
